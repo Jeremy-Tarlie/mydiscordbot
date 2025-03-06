@@ -1,0 +1,84 @@
+{
+    "tech" : "JavaScript",
+    "prefix" : "/",
+    "list_command" : [
+        {
+            "name" : "help",
+            "description" : "Donne toute les commandes, qui est dans le bot",
+            "delay" : 1,
+            "price" : 1
+        },
+        {
+            "name" : "ban",
+            "description" : "Ban les personnes qu'on mentionne avec une durée et une raison",
+            "delay" : 1,
+            "price" : 1
+        },
+        {
+            "name" : "Unban",
+            "description" : "Déban les personnes qu'on veut avec une raison",
+            "delay" : 1,
+            "price" : 1
+        },
+        {
+            "name" : "level",
+            "description" : "Donne les levels de l'utilisateur ou de la personne qu'il mentionne",
+            "delay" : 1,
+            "price" : 1
+        },
+        {
+            "name" : "level-clear",
+            "description" : "Remets à 0 les levels de l'utilisateur",
+            "delay" : 1,
+            "price" : 1
+        },
+        {
+            "name" : "level-give",
+            "description" : "Donne de l'xp ou des level à un utilisateur",
+            "delay" : 1,
+            "price" : 1
+        },
+        {
+            "name" : "level-remove",
+            "description" : "Enlève les xp ou des levels à un utilisateur",
+            "delay" : 1,
+            "price" : 1
+        },
+        {
+            "name" : "level-top",
+            "description" : "Montre le top 3 des personnes qui ont le level le plus élevé",
+            "delay" : 1,
+            "price" : 1
+        },
+        {
+            "name" : "money",
+            "description" : "Donne l'argent de l'utilisateur ou de la personne qu'il mentionne",
+            "delay" : 1,
+            "price" : 1
+        },
+        {
+            "name" : "eco-clear",
+            "description" : "Remets à 0 l'argent de l'utilisateur",
+            "delay" : 1,
+            "price" : 1
+        },
+        {
+            "name" : "eco-give",
+            "description" : "Donne de l'argent à un utilisateur",
+            "delay" : 1,
+            "price" : 1
+        },
+        {
+            "name" : "eco-remove",
+            "description" : "Enlève l'argent' à un utilisateur",
+            "delay" : 1,
+            "price" : 1
+        },
+        {
+            "name" : "eco-top",
+            "description" : "Montre le top 3 des personnes qui ont le plus d'argent",
+            "delay" : 1,
+            "price" : 1
+        }
+    ]
+}

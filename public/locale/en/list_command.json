@@ -1,0 +1,84 @@
+{
+    "tech": "JavaScript",
+    "prefix": "/",
+    "list_command": [
+        {
+            "name": "help",
+            "description": "Provides all the commands available in the bot",
+            "delay": 1,
+            "price": 1
+        },
+        {
+            "name": "ban",
+            "description": "Bans mentioned users with a specified duration and reason",
+            "delay": 1,
+            "price": 1
+        },
+        {
+            "name": "unban",
+            "description": "Unbans users with a specified reason",
+            "delay": 1,
+            "price": 1
+        },
+        {
+            "name": "level",
+            "description": "Shows the level of the user or the mentioned person",
+            "delay": 1,
+            "price": 1
+        },
+        {
+            "name": "level-clear",
+            "description": "Resets the user's level to 0",
+            "delay": 1,
+            "price": 1
+        },
+        {
+            "name": "level-give",
+            "description": "Grants XP or levels to a user",
+            "delay": 1,
+            "price": 1
+        },
+        {
+            "name": "level-remove",
+            "description": "Removes XP or levels from a user",
+            "delay": 1,
+            "price": 1
+        },
+        {
+            "name": "level-top",
+            "description": "Shows the top 3 users with the highest levels",
+            "delay": 1,
+            "price": 1
+        },
+        {
+            "name": "money",
+            "description": "Displays the money of the user or the mentioned person",
+            "delay": 1,
+            "price": 1
+        },
+        {
+            "name": "eco-clear",
+            "description": "Resets the user's money to 0",
+            "delay": 1,
+            "price": 1
+        },
+        {
+            "name": "eco-give",
+            "description": "Grants money to a user",
+            "delay": 1,
+            "price": 1
+        },
+        {
+            "name": "eco-remove",
+            "description": "Removes money from a user",
+            "delay": 1,
+            "price": 1
+        },
+        {
+            "name": "eco-top",
+            "description": "Shows the top 3 users with the most money",
+            "delay": 1,
+            "price": 1
+        }
+    ]
+}
