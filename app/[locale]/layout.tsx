@@ -39,11 +39,7 @@ export default function RootLayout({ children }: LayoutProps) {
   return (
     <html lang={locale || "fr"} className={inter.className}>
       <head>
-        <script
-          src={`https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`}
-          async
-          defer
-        ></script>
+        
       </head>
 
       <NextIntlClientProvider locale={locale || "fr"} messages={messages}>

@@ -3,9 +3,8 @@ import nodemailer from "nodemailer";
 import { Buffer } from "buffer";
 
 const transporter = nodemailer.createTransport({
-    // host: process.env.SMTP_HOST || "smtp.gmail.com",
-    // port: process.env.SMTP_PORT,
-    service: process.env.SMTP_SERVICE || "gmail",
+    host: process.env.SMTP_HOST,
+    port: parseInt(process.env.SMTP_PORT || "587"),
     secure: true,
     auth: {
         user: process.env.SMTP_USER,
@@ -13,7 +12,7 @@ const transporter = nodemailer.createTransport({
     },
 });
 
-const RECAPTCHA_SECRET_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_PRIVATE_KEY;
+const TURNSTILE_SECRET_KEY = process.env.TURNSTILE_SECRET_KEY;
 
 export async function POST(req: NextRequest) {
     if (req.method === "POST") {
@@ -30,23 +29,22 @@ export async function POST(req: NextRequest) {
                 email: mail, // Adresse email du client
             } = bot_view;
 
-            
-            const response = await fetch(`https://www.google.com/recaptcha/api/siteverify`, {
+            // Vérification du CAPTCHA avec Cloudflare Turnstile
+            const turnstileResponse = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded",
-                },
-                body: `secret=${RECAPTCHA_SECRET_KEY}&response=${recaptchaToken}`,
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    secret: TURNSTILE_SECRET_KEY,
+                    response: recaptchaToken,
+                }),
             });
 
-            const result = await response.json();
+            const turnstileResult = await turnstileResponse.json();
 
-
-            if (!result.success || result.score < 0.5) {
-                // Échec si le score est trop bas (reCAPTCHA v3 utilise un score)
+            if (!turnstileResult.success) {
+                // Si Cloudflare Turnstile échoue, on renvoie une erreur
                 return NextResponse.json({ error: "CAPTCHA validation failed" }, { status: 400 });
             }
-
 
             // Validation des champs obligatoires
             if (!mail || !discord || !nameBot) {
@@ -57,18 +55,13 @@ export async function POST(req: NextRequest) {
                 throw new Error("Email invalide.");
             }
 
-
-
             // Formater les commandes
             const formattedCommands = command.map(
                 (cmd: { name: string; description: string }, index: number) =>
                     `<li>${index + 1}. ${cmd.name} : ${cmd.description}</li>`
             ).join("");
 
-
             const priceMounth = hostBot === "true" ? "10€/mois" : "0€/mois";
-
-
 
             // Options pour l'email principal
             const mailOptions = {
@@ -85,18 +78,17 @@ export async function POST(req: NextRequest) {
                     ]
                     : [],
                 html: `
-            <div>
-              <h1>Nom du bot : ${nameBot}</h1>
-              <h2>${hostBot === "true" ? "Le bot sera hébergé" : "Pas d'hébergement"}</h2>
-            </div>
-            <h3>Le prix est de ${price}€ ${hostBot === "true" ? `avec un hébergement à ${priceMounth}` : ""}</h3>
-            <p><strong>Commentaire supplémentaire :</strong> ${commentBot || "Aucun"}</p>
-            <p><strong>Description du bot :</strong> ${descriptionBot}</p>
-         
-            <p><strong>Commandes :</strong></p>
-            <ul>${formattedCommands}</ul>
-            <p><strong>Commande passée par :</strong> ${discord} (${mail})</p>
-          `,
+                    <div>
+                      <h1>Nom du bot : ${nameBot}</h1>
+                      <h2>${hostBot === "true" ? "Le bot sera hébergé" : "Pas d'hébergement"}</h2>
+                    </div>
+                    <h3>Le prix est de ${price}€ ${hostBot === "true" ? `avec un hébergement à ${priceMounth}` : ""}</h3>
+                    <p><strong>Commentaire supplémentaire :</strong> ${commentBot || "Aucun"}</p>
+                    <p><strong>Description du bot :</strong> ${descriptionBot}</p>
+                    <p><strong>Commandes :</strong></p>
+                    <ul>${formattedCommands}</ul>
+                    <p><strong>Commande passée par :</strong> ${discord} (${mail})</p>
+                `,
             };
 
             // Options pour l'email de confirmation au client
@@ -105,12 +97,12 @@ export async function POST(req: NextRequest) {
                 to: mail, // Destination : Email client
                 subject: "Confirmation de la commande",
                 text: `
-            Bonjour,
-            Votre commande pour le bot "${nameBot}" a bien été reçue.
-            Le paiement s'effectuera via PayPal et aura lieu à la fin du projet, juste avant la livraison.
-            Nous vous recontacterons prochainement.
-            Bien cordialement,
-          `,
+                    Bonjour,
+                    Votre commande pour le bot "${nameBot}" a bien été reçue.
+                    Le paiement s'effectuera via PayPal, juste avant la livraison.
+                    Nous vous recontacterons prochainement.
+                    Bien cordialement,
+                `,
             };
 
             // Envoyer les emails
@@ -131,7 +123,6 @@ export async function POST(req: NextRequest) {
     }
 }
 
-
 async function sendEmail(mailOptions: nodemailer.SendMailOptions) {
     return new Promise((resolve, reject) => {
         transporter.sendMail(mailOptions, (error: Error | null, info: nodemailer.SentMessageInfo) => {
@@ -144,7 +135,6 @@ async function sendEmail(mailOptions: nodemailer.SendMailOptions) {
         });
     });
 }
-
 
 function isValidEmail(email: string): boolean {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
