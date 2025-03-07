@@ -28,13 +28,8 @@
   "price": "Price",
   "price_mounth": "+ €10/month",
   "technical_info": "Technical Information",
-  "info.partie1": "Part 1 of the technical information",
-  "info.partie2": "Part 2 of the technical information",
-  "info.partie3": "Part 3 of the technical information",
   "contact_info": "Contact Information",
   "terms_agreement": "I accept the terms of service",
   "finish": "Finish",
-  "submitting": "Submitting...",
-  "success.success_submit": "Submission successful!",
-  "error.error_submit": "Error during submission."
+  "submitting": "Submitting..."
 }

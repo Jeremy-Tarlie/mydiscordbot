@@ -28,13 +28,8 @@
   "price": "Prix",
   "price_mounth": "+ 10€/mois",
   "technical_info": "Informations techniques",
-  "info.partie1": "Partie 1 des informations techniques",
-  "info.partie2": "Partie 2 des informations techniques",
-  "info.partie3": "Partie 3 des informations techniques",
   "contact_info": "Informations de contact",
   "terms_agreement": "J'accepte les conditions d'utilisation",
   "finish": "Terminer",
-  "submitting": "Soumission en cours...",
-  "success.success_submit": "Soumission réussie !",
-  "error.error_submit": "Erreur lors de la soumission."
+  "submitting": "Soumission en cours..."
 }

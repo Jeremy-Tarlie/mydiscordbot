@@ -5,7 +5,7 @@ import list_command_en from "@/public/locale/en/list_command.json";
 import { useTranslations } from "next-intl";
 import { useLocale } from "next-intl";
 import { useState, useMemo, useEffect } from "react";
-import {toast} from "react-hot-toast";
+import { toast } from "react-hot-toast";
 
 type Bot = {
   bot_view: {
@@ -104,15 +104,12 @@ const Command: React.FC<CommandProps> = ({ bot, setBot }) => {
 
   const command_select =
     (command: { name: string; description: string }) =>
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      if (event.target.checked) {
-        setSelectedCommands((prev) => [...prev, command]);
+    () => {
+      const isSelected = selectedCommands.some(
+        (selected) => selected.name === command.name
+      );
 
-        setBot((prevBot: Bot) => ({
-          ...prevBot,
-          command: [...(prevBot.command || []), command],
-        }));
-      } else {
+      if (isSelected) {
         setSelectedCommands((prev) =>
           prev.filter((selected) => selected.name !== command.name)
         );
@@ -120,8 +117,16 @@ const Command: React.FC<CommandProps> = ({ bot, setBot }) => {
         setBot((prevBot: Bot) => ({
           ...prevBot,
           command: (prevBot.command || []).filter(
-            (selected: { name: string; description: string; custom?: boolean }) => selected.name !== command.name
+            (selected: { name: string; description: string; custom?: boolean }) =>
+              selected.name !== command.name
           ),
+        }));
+      } else {
+        setSelectedCommands((prev) => [...prev, command]);
+
+        setBot((prevBot: Bot) => ({
+          ...prevBot,
+          command: [...(prevBot.command || []), command],
         }));
       }
     };
@@ -130,11 +135,15 @@ const Command: React.FC<CommandProps> = ({ bot, setBot }) => {
     <div className={style.commandes_list}>
       <ul className={style.command_list_ul}>
         {commands.map((command) => (
-          <li key={command.name} className={style.commande}>
+          <li
+            key={command.name}
+            className={style.commande}
+            onClick={command_select(command)}
+          >
             <input
               className="checkbox"
               type="checkbox"
-              onChange={command_select(command)}
+              onChange={(e) => e.stopPropagation()}
               checked={selectedCommands.some(
                 (selected) => selected.name === command.name
               )}

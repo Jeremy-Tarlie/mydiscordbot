@@ -46,6 +46,7 @@
 }
 
 .heroImage {
+  border-radius: 5%;
   max-width: 100%;
   height: auto;
   animation: float 6s ease-in-out infinite;
