@@ -18,8 +18,7 @@
     "react-dom": "19.0.0-rc-66855b96-20241106",
     "react-google-recaptcha": "^3.1.0",
     "react-hot-toast": "^2.4.1",
-    "react-turnstile": "^1.1.4",
-    "recaptcha-v3": "^1.11.3"
+    "react-turnstile": "^1.1.4"
   },
   "devDependencies": {
     "@types/node": "^20",

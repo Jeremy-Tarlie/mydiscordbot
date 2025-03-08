@@ -1,7 +1,6 @@
 import React from "react";
 import style from "@/public/style/info_command.module.css";
 import { useTranslations } from "next-intl";
-import { load } from "recaptcha-v3";
 import { Turnstile } from "@marsidev/react-turnstile";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -32,7 +31,7 @@ const Info_command = ({
   const prefixe = "/";
   const [turnstileToken, setTurnstileToken] = useState("");
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!bot.bot_view.discord || !bot.bot_view.email) {
@@ -69,7 +68,6 @@ const Info_command = ({
       console.error(error);
     }
   };
-  
 
   return (
     <div className={style.info_commande}>
