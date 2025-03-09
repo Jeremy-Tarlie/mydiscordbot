@@ -31,16 +31,19 @@ jobs:
           docker buildx build --push \
             --tag ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_APP }}:latest .
 
-      # Étape 5: Déployer sur la VM Proxmox via SSH
-      - name: Deploy to Proxmox VM via SSH (with password)
+      # Étape 5: Déployer sur la VM via Proxmox
+      - name: Deploy to VM via SSH through Proxmox
         uses: appleboy/ssh-action@v0.1.10
         with:
-          host: ${{ secrets.PROXMOX_HOST }}  # IP du serveur Proxmox
-          username: ${{ secrets.PROXMOX_USER }}  # Nom d'utilisateur sur Proxmox
-          password: ${{ secrets.PROXMOX_PASSWORD }}  # Mot de passe pour Proxmox
-          port: 22  # Port SSH (par défaut 22)
+          host: ${{ secrets.PROXMOX_HOST }}
+          username: ${{ secrets.PROXMOX_USER }}
+          password: ${{ secrets.PROXMOX_PASSWORD }}
+          port: 22
           script: |
-            # Exécuter les commandes Docker directement sur Proxmox VM
-            echo "${{ secrets.VM_SUDO_PASSWORD }}" | sudo -S docker-compose pull
-            echo "${{ secrets.VM_SUDO_PASSWORD }}" | sudo -S docker-compose down
-            echo "${{ secrets.VM_SUDO_PASSWORD }}" | sudo -S docker-compose up -d --remove-orphans
+            # Se connecter à la VM depuis Proxmox
+            sshpass -p "${{ secrets.VM_PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.VM_USER }}@${{ secrets.VM_HOST }} '
+              # Exécuter les commandes Docker sur la VM
+              echo "${{ secrets.VM_SUDO_PASSWORD }}" | sudo -S docker-compose pull &&
+              echo "${{ secrets.VM_SUDO_PASSWORD }}" | sudo -S docker-compose down &&
+              echo "${{ secrets.VM_SUDO_PASSWORD }}" | sudo -S docker-compose up -d --remove-orphans
+            '
