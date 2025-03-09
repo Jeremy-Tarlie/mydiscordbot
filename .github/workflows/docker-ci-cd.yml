@@ -41,7 +41,7 @@ jobs:
           port: 22  # Port SSH (par défaut 22)
           script: |
             # Connexion SSH à Proxmox
-            sshpass -p "${{ secrets.PROXMOX_PASSWORD }}" ssh -o StrictHostKeyChecking=no -T ${{ secrets.PROXMOX_USER }}@${{ secrets.PROXMOX_HOST }} << 'EOF'
+            ssh -o StrictHostKeyChecking=no -T ${{ secrets.PROXMOX_USER }}@${{ secrets.PROXMOX_HOST }} << 'EOF'
               # Connexion SSH à la VM depuis Proxmox
               sshpass -p "${{ secrets.VM_PASSWORD }}" ssh -o StrictHostKeyChecking=no -T ${{ secrets.VM_USER }}@${{ secrets.VM_HOST }} << 'EOF_VM'
                 # Exécuter les commandes Docker sur la VM
