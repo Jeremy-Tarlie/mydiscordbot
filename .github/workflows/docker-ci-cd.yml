@@ -3,10 +3,10 @@ name: Docker CI/CD
 on:
   push:
     branches:
-      - main # Trigger this workflow when pushing to the 'main' branch
+      - main  # Déclenchement du workflow sur push vers main
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -14,7 +14,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Étape 2: Configurer Docker
+      # Étape 2: Configurer Docker Buildx
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
@@ -23,16 +23,31 @@ jobs:
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+          password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
 
-      # Étape 4: Construire l'image Docker
-      - name: Build Docker image
+      # Étape 4: Construire et pousser l'image Docker
+      - name: Build and Push Docker image
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_APP }}:latest .
+          docker buildx build --push \
+            --tag ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_APP }}:latest .
 
-      # Étape 5: Push de l'image vers Docker Hub
-      - name: Push Docker image to Docker Hub
-        run: |
-          docker push ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_APP }}:latest
-
-
+      # Étape 5: Déployer sur la VM Proxmox via SSH (connexion en chaîne)
+      - name: Deploy to Proxmox VM via SSH
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.PROXMOX_HOST }}   # IP du serveur Proxmox
+          username: ${{ secrets.PROXMOX_USER }}  # Nom d'utilisateur sur Proxmox
+          password: ${{ secrets.PROXMOX_PASSWORD }}  # Mot de passe pour l'authentification SSH sur Proxmox
+          port: 22  # Port SSH (par défaut 22)
+          script: |
+            # Connexion SSH à la VM depuis Proxmox
+            sshpass -p "${{ secrets.VM_SUDO_PASSWORD }}" ssh -o StrictHostKeyChecking=no -T ${{ secrets.PROXMOX_USER }}@${{ secrets.PROXMOX_HOST }} << 'EOF'
+              # Connexion SSH à la VM Proxmox
+              sshpass -p "${{ secrets.VM_SUDO_PASSWORD }}" ssh -o StrictHostKeyChecking=no -T ${VM_USER}@${VM_HOST} << 'EOF_VM'
+                # Exécuter les commandes Docker sur la VM
+                cd /chemin/vers/ton/app  # Remplace par le bon chemin où ton docker-compose se trouve
+                sudo docker-compose pull
+                sudo docker-compose down
+                sudo docker-compose up -d --remove-orphans
+              EOF_VM
+            EOF
