@@ -36,7 +36,7 @@ jobs:
         uses: appleboy/ssh-action@v0.1.10
         with:
           host: ${{ secrets.PROXMOX_HOST }}   # IP du serveur Proxmox
-          username: ${{ secrets.PROXMOX_USERNAME }}  # Nom d'utilisateur sur Proxmox
+          username: ${{ secrets.PROXMOX_USER }}  # Nom d'utilisateur sur Proxmox
           password: ${{ secrets.PROXMOX_PASSWORD }}  # Mot de passe pour l'authentification SSH sur Proxmox
           port: 22  # Port SSH (par défaut 22)
           script: |
