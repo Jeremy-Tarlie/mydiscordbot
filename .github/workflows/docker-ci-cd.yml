@@ -37,15 +37,11 @@ jobs:
         with:
           host: ${{ secrets.PROXMOX_HOST }}
           username: ${{ secrets.PROXMOX_USER }}
-          password: ${{ secrets.PROXMOX_PASSWORD }}
+          key: ${{ secrets.VM_SSH_KEY }}
           port: 22
           script: |
-            # Vérifier l'installation de sshpass
-            which sshpass || (apt-get update && apt-get install -y sshpass)
-            
-            # Se connecter à la VM depuis Proxmox avec l'option -tt pour forcer l'allocation d'un terminal
-            sshpass -p "${{ secrets.VM_PASSWORD }}" ssh -o StrictHostKeyChecking=no -tt ${{ secrets.VM_USER }}@${{ secrets.VM_HOST }} "
-              echo \"${{ secrets.VM_SUDO_PASSWORD }}\" | sudo -S docker-compose pull &&
-              echo \"${{ secrets.VM_SUDO_PASSWORD }}\" | sudo -S docker-compose down &&
-              echo \"${{ secrets.VM_SUDO_PASSWORD }}\" | sudo -S docker-compose up -d --remove-orphans
-            "
+            ssh -o StrictHostKeyChecking=no -i /tmp/vm_key ${{ secrets.VM_USER }}@${{ secrets.VM_HOST }} '
+              sudo docker-compose pull &&
+              sudo docker-compose down &&
+              sudo docker-compose up -d --remove-orphans
+            '
