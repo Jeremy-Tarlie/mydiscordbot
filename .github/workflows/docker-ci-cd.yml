@@ -31,17 +31,16 @@ jobs:
           docker buildx build --push \
             --tag ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_APP }}:latest .
 
-      # Étape 5: Déployer sur la VM via Proxmox 
-      - name: Deploy to VM via SSH through Proxmox
+      # Étape 5: Déployer sur la VM via SSH
+      - name: Deploy to VM via SSH
         uses: appleboy/ssh-action@v0.1.10
         with:
-          host: ${{ secrets.PROXMOX_HOST }}
-          username: ${{ secrets.PROXMOX_USER }}
+          host: ${{ secrets.VM_HOST }}
+          username: ${{ secrets.VM_USER }}
           key: ${{ secrets.VM_SSH_KEY }}
+          passphrase: ${{ secrets.VM_SSH_PASSPHRASE }}
           port: 22
           script: |
-            ssh -o StrictHostKeyChecking=no -i /tmp/vm_key ${{ secrets.VM_USER }}@${{ secrets.VM_HOST }} '
-              sudo docker-compose pull &&
-              sudo docker-compose down &&
-              sudo docker-compose up -d --remove-orphans
-            '
+            sudo docker-compose pull
+            sudo docker-compose down
+            sudo docker-compose up -d --remove-orphans
