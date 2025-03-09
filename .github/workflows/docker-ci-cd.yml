@@ -31,7 +31,7 @@ jobs:
           docker buildx build --push \
             --tag ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_APP }}:latest .
 
-      # Étape 5: Déployer sur la VM via Proxmox
+      # Étape 5: Déployer sur la VM via Proxmox 
       - name: Deploy to VM via SSH through Proxmox
         uses: appleboy/ssh-action@v0.1.10
         with:
