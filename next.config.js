@@ -5,7 +5,9 @@ const path = require("path");
 
 const nextConfig = {
   reactStrictMode: true,
- 
+  images: {
+    domains: ["mydiscordbot.com"],
+  },
 };
 
 module.exports = withNextIntl(nextConfig);
