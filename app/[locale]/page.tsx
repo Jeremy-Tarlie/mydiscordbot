@@ -18,7 +18,7 @@ export default function HomePage() {
         </div>
         <div className={styles.heroImageContainer}>
           <Image
-            src="/img/bot.png"
+            src="/img/bot.webp"
             alt=""
             width={600}
             height={600}
