@@ -27,7 +27,15 @@ jobs:
           docker buildx build --push \
             --tag ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_APP }}:latest .
 
-      # Étape 5: Connexion SSH au serveur physique (Proxmox)
+      # Configuration de la clé SSH
+      - name: Install SSH key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          known_hosts: unnecessary
+          if_key_exists: replace
+
+      # Connexion SSH au serveur physique (Proxmox)
       - name: Connect to physical server
         uses: appleboy/ssh-action@v0.1.10
         with:
@@ -35,11 +43,20 @@ jobs:
           username: ${{ secrets.PROXMOX_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
+          debug: true
+          command_timeout: 20m
           script: |
-            # Étape 6: Connexion SSH à la VM depuis le serveur physique
-            ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ${{ secrets.VM_USER }}@${{ secrets.VM_HOST }} << 'EOF'
-              # Étape 7: Exécuter les commandes Docker sur la VM
-              sudo docker-compose pull
-              sudo docker-compose down
-              sudo docker-compose up -d --remove-orphans
-            EOF
+            echo "Connecting to VM..."
+            ssh -o StrictHostKeyChecking=no ${{ secrets.VM_USER }}@${{ secrets.VM_HOST }} '
+              echo "Connected to VM"
+              echo "Current directory: $(pwd)"
+              if [ -f docker-compose.yml ]; then
+                echo "docker-compose.yml found"
+                sudo docker-compose pull
+                sudo docker-compose down
+                sudo docker-compose up -d --remove-orphans
+              else
+                echo "Error: docker-compose.yml not found"
+                exit 1
+              fi
+            ' 
