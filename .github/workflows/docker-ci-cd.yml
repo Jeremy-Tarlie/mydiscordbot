@@ -3,44 +3,43 @@ name: Docker CI/CD
 on:
   push:
     branches:
-      - main  # Déclenchement du workflow sur push vers main
+      - main
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # Étape 1: Vérifier le code source
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Étape 2: Configurer Docker Buildx
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
-      # Étape 3: Se connecter à Docker Hub
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      # Étape 4: Construire et pousser l'image Docker
       - name: Build and Push Docker image
         run: |
           docker buildx build --push \
             --tag ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_APP }}:latest .
 
-      # Étape 5: Déployer sur la VM via SSH
-      - name: Deploy to VM via SSH
-        uses: appleboy/ssh-action@v0.1.10 
+      # Étape 5: Connexion SSH au serveur physique (Proxmox)
+      - name: Connect to physical server
+        uses: appleboy/ssh-action@v0.1.10
         with:
-          host: ${{ secrets.VM_HOST }}
-          username: ${{ secrets.VM_USER }}
-          key: ${{ secrets.VM_SSH_KEY }}
-          passphrase: ${{ secrets.VM_SSH_PASSPHRASE }}
+          host: ${{ secrets.PROXMOX_HOST }}
+          username: ${{ secrets.PROXMOX_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
           script: |
-            sudo docker-compose pull
-            sudo docker-compose down
-            sudo docker-compose up -d --remove-orphans
+            # Étape 6: Connexion SSH à la VM depuis le serveur physique
+            ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ${{ secrets.VM_USER }}@${{ secrets.VM_HOST }} << 'EOF'
+              # Étape 7: Exécuter les commandes Docker sur la VM
+              sudo docker-compose pull
+              sudo docker-compose down
+              sudo docker-compose up -d --remove-orphans
+            EOF
