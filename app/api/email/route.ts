@@ -3,18 +3,26 @@ import nodemailer from "nodemailer";
 import { Buffer } from "buffer";
 
 const transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: parseInt(process.env.SMTP_PORT || "587"),
-    secure: true,
+    host: process.env.SMTP_HOST?.trim(), // Ajout de trim() pour enlever les espaces
+    port: parseInt(process.env.SMTP_PORT || "465"), // Changement du port par défaut à 465 si vous utilisez SSL/TLS
+    secure: true, // true pour 465, false pour les autres ports comme 587
     auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
+        user: process.env.SMTP_USER?.trim(),
+        pass: process.env.SMTP_PASS?.trim(),
     },
+    tls: {
+        rejectUnauthorized: false // Ajoutez cette option si vous avez des problèmes de certificat
+    }
 });
-
 const TURNSTILE_SECRET_KEY = process.env.TURNSTILE_SECRET_KEY;
 
 export async function POST(req: NextRequest) {
+    console.log('SMTP Configuration:', {
+        host: process.env.SMTP_HOST,
+        port: process.env.SMTP_PORT,
+        user: process.env.SMTP_USER
+    });
+
     if (req.method === "POST") {
         try {
             const bot = await req.json();
@@ -124,17 +132,35 @@ export async function POST(req: NextRequest) {
 }
 
 async function sendEmail(mailOptions: nodemailer.SendMailOptions) {
+    console.log('Attempting to send email with options:', {
+        from: mailOptions.from,
+        to: mailOptions.to,
+        subject: mailOptions.subject
+    });
+
     return new Promise((resolve, reject) => {
-        transporter.sendMail(mailOptions, (error: Error | null, info: nodemailer.SentMessageInfo) => {
+        transporter.verify((error) => {
             if (error) {
-                console.error("Error sending email:", error);
+                console.error('Transporter verification failed:', error);
                 reject(error);
-            } else {
-                resolve(info);
+                return;
             }
+            
+            console.log('Transporter verified successfully');
+            
+            transporter.sendMail(mailOptions, (error: Error | null, info: nodemailer.SentMessageInfo) => {
+                if (error) {
+                    console.error("Error sending email:", error);
+                    reject(error);
+                } else {
+                    console.log('Email sent successfully:', info);
+                    resolve(info);
+                }
+            });
         });
     });
 }
+
 
 function isValidEmail(email: string): boolean {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

@@ -10,6 +10,9 @@ COPY package.json package-lock.json ./
 # Étape 4 : Installer les dépendances avec --legacy-peer-deps
 RUN npm install --legacy-peer-deps
 
+# Vérifier les dépendances installées
+RUN npm list --depth=0
+
 # Étape 5 : Copier le reste du code source dans le conteneur
 COPY . .
 
@@ -25,6 +28,8 @@ WORKDIR /app
 # Étape 9 : Copier uniquement les fichiers nécessaires (build et node_modules)
 COPY --from=builder /app/package.json /app/package-lock.json ./
 COPY --from=builder /app/.next ./.next
+# Ajouter cette ligne pour copier le dossier public
+COPY --from=builder /app/public ./public
 
 # Étape 10 : Installer les dépendances de production
 RUN npm install --production --legacy-peer-deps

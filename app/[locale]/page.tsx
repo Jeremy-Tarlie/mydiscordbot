@@ -19,7 +19,7 @@ export default function HomePage() {
         <div className={styles.heroImageContainer}>
           <Image
             src="/img/bot.webp"
-            alt=""
+            alt="Image hero"
             width={600}
             height={600}
             className={styles.heroImage}
@@ -35,7 +35,7 @@ export default function HomePage() {
           <div className={styles.featureImageWrapper}>
             <Image
               src="/img/bot-view.svg"
-              alt=""
+              alt="Bot view"
               width={500}
               height={500}
               className={styles.featureImage}
@@ -55,7 +55,7 @@ export default function HomePage() {
           <div className={styles.featureImageWrapper}>
             <Image
               src="/img/bot-chat.svg"
-              alt=""
+              alt="Bot chat"  
               width={500}
               height={500}
               className={styles.featureImage}
@@ -67,7 +67,7 @@ export default function HomePage() {
           <div className={styles.featureImageWrapper}>
             <Image
               src="/img/bot-command.svg"
-              alt=""
+              alt="Bot command"
               width={500}
               height={500}
               className={styles.featureImage}

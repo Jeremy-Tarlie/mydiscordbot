@@ -13,14 +13,14 @@ const View_Bot = ({bot_view}: { bot_view: BotView }) => {
     <div className={style.view}>
       <Image
         src="/img/profile-bot.png"
-        alt=""
+        alt="Profile background"
         className={style.bot_background}
         width={1000}
         height={1000}
       />
       <Image
         src={bot_view.img_url || "/img/image-profile-default.png"}
-        alt=""
+        alt="Profile bot"
         className={style.profile}
         width={120}
         height={120}
