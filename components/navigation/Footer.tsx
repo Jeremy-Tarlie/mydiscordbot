@@ -1,9 +1,13 @@
+"use client";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import styles from "@/public/style/footer.module.css";
+import { useParams } from 'next/navigation';
 
 const Footer = () => {
   const t = useTranslations("footer");
+  const params = useParams();
+  const locale = params.locale as string;
   
   return (
     <footer className={styles.footer}>
@@ -15,13 +19,13 @@ const Footer = () => {
           </div>
           
           <div className={styles.footerLinks}>
-            <Link href="/privacy-policy">
+            <Link href={`/${locale}/privacy-policy`}>
               {t("privacy")}
             </Link>
-            <Link href="/privacy-policy">
+            <Link href={`/${locale}/privacy-policy`}>
               {t("terms")}
             </Link>
-            <Link href="/privacy-policy">
+            <Link href={`/${locale}/privacy-policy`}>
               {t("contact")}
             </Link>
           </div>

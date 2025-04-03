@@ -3,6 +3,7 @@ import style from "@/public/style/form_step_1.module.css";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
+import { useParams } from 'next/navigation';
 
 interface Bot {
   name: string;
@@ -22,6 +23,8 @@ const Form_step_1 = ({
 }) => {
   const t = useTranslations("command");
   const router = useRouter();
+  const params = useParams();
+  const locale = params.locale as string;
 
   const handleChange = (
     e: React.ChangeEvent<
@@ -68,7 +71,8 @@ const Form_step_1 = ({
 
       if (response.ok) {
         localStorage.setItem("botData", JSON.stringify(bot));
-        router.push("/command_finish");
+        const routeLocale = `/${locale}/command_finish`
+        router.push(routeLocale);
       } else {
         toast.error(t("error.error_submit"));
         throw new Error(`HTTP error! Status: ${response.status}`);

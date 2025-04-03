@@ -27,7 +27,7 @@ const Header: React.FC<HeaderProps> = ({ locale }) => {
   return (
     <header className={styles.header}>
       <div className={styles.headerContainer}>
-        <Link href="/" className={styles.logoContainer}>
+        <Link href={`/${locale}/`} className={styles.logoContainer}>
           <Image
             src="/img/bot-discord-logo.png"
             alt="My Discord Bot Logo"

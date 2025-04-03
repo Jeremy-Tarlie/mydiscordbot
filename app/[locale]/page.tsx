@@ -1,10 +1,14 @@
+"use client";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "@/public/style/home.module.css";
+import { useParams } from "next/navigation";
 
 export default function HomePage() {
   const t = useTranslations("home");
+  const params = useParams();
+  const locale = params.locale as string;
 
   return (
     <main className={styles.main}>
@@ -12,7 +16,7 @@ export default function HomePage() {
         <div className={styles.heroContent}>
           <h1 className={styles.heroTitle}>{t("home_title")}</h1>
           <p className={styles.heroDescription}>{t("home_description")}</p>
-          <Link href="/command" className={styles.ctaButton}>
+          <Link href={`/${locale}/command`} className={styles.ctaButton}>
             {t("home_description_button")}
           </Link>
         </div>
@@ -55,7 +59,7 @@ export default function HomePage() {
           <div className={styles.featureImageWrapper}>
             <Image
               src="/img/bot-chat.svg"
-              alt="Bot chat"  
+              alt="Bot chat"
               width={500}
               height={500}
               className={styles.featureImage}
@@ -83,7 +87,7 @@ export default function HomePage() {
       <section className={styles.callToAction}>
         <h2>{t("cta_title")}</h2>
         <p>{t("cta_description")}</p>
-        <Link href="/command" className={styles.ctaButton}>
+        <Link href={`/${locale}/command`} className={styles.ctaButton}>
           {t("home_description_button")}
         </Link>
       </section>

@@ -1,10 +1,14 @@
+"use client";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import style from "@/public/style/404.module.css";
 import Link from "next/link";
+import { useParams } from "next/navigation";
 
 export default function LocalePage() {
   const t = useTranslations("404");
+  const params = useParams();
+  const locale = params.locale as string;
 
   return (
     <main className={style.container_error}>
@@ -17,7 +21,7 @@ export default function LocalePage() {
       />
       <p className={style.title}>{t("title")}</p>
       <p className={style.description}>{t("description")}</p>
-      <Link href="/" className={style.link}>
+      <Link href={`/${locale}/`} className={style.link}>
         {t("back")}
       </Link>
     </main>
