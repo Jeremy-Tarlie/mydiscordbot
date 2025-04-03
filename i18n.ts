@@ -1,39 +1,29 @@
-//i18n.ts
-import { getRequestConfig, setRequestLocale } from "next-intl/server";
-import i18nextConfig from "@/next-i18n.config";
+import { getRequestConfig } from 'next-intl/server';
 
-const { defaultLocale, namespaces } = i18nextConfig;
-
-// Cette fonction charge les messages pour un namespace donné
-export async function getNSMessages({ ns }: { ns: string }) {
-  const locale = setRequestLocale(defaultLocale); // ✅ On définit le locale ici
-  console.log("locale:", locale);
-  console.log("namespace:", ns);
-  
-
+export default getRequestConfig(async ({ locale }) => {
   try {
-    return (await import(`./public/locale/${locale}/${ns}.json`)).default;
-  } catch (e) {
-    console.error(e);
-    // Si la localisation est introuvable, on charge la localisation par défaut
-    return (await import(`./public/locale/${defaultLocale}/${ns}.json`)).default;
+    // Chargez tous les namespaces nécessaires
+    const messages = {
+      home: (await import(`./public/locale/${locale}/home.json`)).default,
+      footer: (await import(`./public/locale/${locale}/footer.json`)).default,
+      navigation: (await import(`./public/locale/${locale}/navigation.json`)).default,
+      command: (await import(`./public/locale/${locale}/command.json`)).default,
+      command_finish: (await import(`./public/locale/${locale}/command_finish.json`)).default,
+      mention_legal: (await import(`./public/locale/${locale}/mention_legal.json`)).default,
+      list_command: (await import(`./public/locale/${locale}/list_command.json`)).default,
+      404: (await import(`./public/locale/${locale}/404.json`)).default,
+    };
+
+    return {
+      messages,
+      locale // Retournez la locale ici
+    };
+  } catch (error) {
+    console.error(`Error loading messages for locale "${locale}":`, error);
+    throw error;
   }
-}
-
-// Configuration du serveur pour retourner les messages nécessaires
-export default getRequestConfig(async () => {
-  const locale = defaultLocale; // Locale par défaut
-
-  const allMessages = await Promise.all(
-    namespaces.map((ns) =>
-      getNSMessages({ ns }).then((messages) => ({ ns, messages }))
-    )
-  );
-
-  const messages = allMessages.reduce(
-    (acc: any, cur: any) => ({ ...acc, [cur.ns]: cur.messages }),
-    {}
-  );
-
-  return { locale, messages };
 });
+
+// Exportez les configurations de locale
+export const locales = ['fr', 'en'] as const;
+export const defaultLocale = 'fr' as const;

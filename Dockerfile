@@ -19,21 +19,6 @@ COPY . .
 # Étape 6 : Construire l'application Next.js pour la production
 RUN npm run build
 
-# Étape 7 : Créer une image plus légère pour exécuter l'application
-FROM node:18-alpine
-
-# Étape 8 : Définir le répertoire de travail pour l'image finale
-WORKDIR /app
-
-# Étape 9 : Copier uniquement les fichiers nécessaires (build et node_modules)
-COPY --from=builder /app/package.json /app/package-lock.json ./
-COPY --from=builder /app/.next ./.next
-# Ajouter cette ligne pour copier le dossier public
-COPY --from=builder /app/public ./public
-
-# Étape 10 : Installer les dépendances de production
-RUN npm install --production --legacy-peer-deps
-
 # Étape 11 : Exposer le port sur lequel l'application Next.js fonctionnera
 EXPOSE 3000
 

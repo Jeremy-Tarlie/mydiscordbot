@@ -1,18 +1,18 @@
-//middleware.ts
-import createMiddleware from "next-intl/middleware";
-import { localePrefix, locales, pathnames } from "./navigation";
+import createMiddleware from 'next-intl/middleware';
+import { locales } from './i18n';
 
-// Middleware pour gérer les locales avec next-intl
+// Définir le type LocalePrefix explicitement
+type LocalePrefix = 'as-needed' | 'always' | 'never';
+
 export default createMiddleware({
-  locales,
-  localePrefix: localePrefix as any,
-  defaultLocale: "fr", // Locale par défaut (à ajuster si nécessaire)
-  pathnames, // Définir les chemins où ce middleware s'applique
+  // Les locales supportées
+  locales: ['fr', 'en'],
+  // La locale par défaut
+  defaultLocale: 'fr',
+  // Utiliser le type correct pour localePrefix
+  localePrefix: 'always' as LocalePrefix
 });
 
-console.log("localePrefix:", localePrefix);
-
-// Ne s'applique qu'aux fichiers dans le répertoire 'app'
 export const config = {
-  matcher: ["/((?!api|_next|.*\\..*).*)"], // Exclure les chemins d'API et les assets
+  matcher: ['/((?!api|_next|.*\\..*).*)', '/']
 };
