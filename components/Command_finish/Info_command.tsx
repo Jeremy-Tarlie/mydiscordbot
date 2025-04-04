@@ -1,5 +1,4 @@
-"use client"
-import React, { useEffect } from "react";
+import React from "react";
 import style from "@/public/style/info_command.module.css";
 import { useTranslations } from "next-intl";
 import { Turnstile } from "@marsidev/react-turnstile";
