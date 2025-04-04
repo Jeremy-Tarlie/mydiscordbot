@@ -77,7 +77,7 @@ const Info_command = ({
     }
   };
 
-  console.log("Bot data:", bot);
+  console.log(turnstileToken)
 
   return (
     <div className={style.info_commande}>
