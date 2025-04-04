@@ -45,7 +45,7 @@ const Command: React.FC<CommandProps> = ({ bot, setBot }) => {
 
     const baseCommands = 20;
     const surchargePer3 = 1;
-    const customCommandCost = 1;
+    const customCommandCost = 2;
 
     const additionalCommands =
       totalCommands > baseCommands
@@ -60,7 +60,7 @@ const Command: React.FC<CommandProps> = ({ bot, setBot }) => {
   useEffect(() => {
     setBot((prevBot: Bot) => ({
       ...prevBot,
-      price: additionalCost,
+      price: additionalCost + 5,
     }));
   }, [additionalCost]);
 
@@ -81,7 +81,7 @@ const Command: React.FC<CommandProps> = ({ bot, setBot }) => {
         name: commandName.value,
         description: textareaCommand.value,
         delay: 0,
-        price: 0,
+        price: 5,
         custom: true,
       };
 

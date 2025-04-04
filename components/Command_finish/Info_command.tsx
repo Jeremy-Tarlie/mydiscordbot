@@ -1,4 +1,5 @@
-import React from "react";
+"use client"
+import React, { useEffect } from "react";
 import style from "@/public/style/info_command.module.css";
 import { useTranslations } from "next-intl";
 import { Turnstile } from "@marsidev/react-turnstile";
@@ -34,6 +35,14 @@ const Info_command = ({
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    const formData = new FormData(e.currentTarget);
+    const username = formData.get("username");
+  
+    // Vérifiez si le champ username est rempli
+    if (username) {
+      return; // Arrête l'exécution si le champ username est rempli
+    }
+
     if (!bot.bot_view.discord || !bot.bot_view.email) {
       toast.error(t("error.fill_all_fields"));
       return;
@@ -55,7 +64,7 @@ const Info_command = ({
       const response = await fetch("/api/email", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...bot, recaptchaToken: turnstileToken }), // Envoie du token Turnstile
+        body: JSON.stringify({ ...bot, recaptchaToken: turnstileToken }),
       });
 
       toast.dismiss("submit");
@@ -68,6 +77,8 @@ const Info_command = ({
       console.error(error);
     }
   };
+
+  console.log("Bot data:", bot);
 
   return (
     <div className={style.info_commande}>
@@ -111,12 +122,10 @@ const Info_command = ({
             <span className={style.info_label}>{t("hosting")}</span>
             <span className={style.info_value}>
               {bot.bot_view.host === "true" ? (
-                <span className={style.host_badge_self}>
-                  {t("self_hosted")}
-                </span>
+                <span className={style.host_badge_self}>{t("hosted")}</span>
               ) : (
                 <span className={style.host_badge_service}>
-                  {t("service_hosted")}
+                  {t("no_hosted")}
                 </span>
               )}
             </span>
@@ -184,6 +193,13 @@ const Info_command = ({
         </div>
 
         <div className={style.contact}>
+          <div className={style.username_group}>
+            <input
+              type="text"
+              id="username"
+              name="username"
+            />
+          </div>
           <div className={style.form_group}>
             <label htmlFor="discord">
               Discord <span className="required">*</span>

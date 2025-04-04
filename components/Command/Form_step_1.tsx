@@ -111,6 +111,7 @@ const Form_step_1 = ({
           type="file"
           name="img"
           id="img"
+          className={style.file_input}
           accept="image/*"
           onChange={async (e: React.ChangeEvent<HTMLInputElement>) => {
             const fileInput = document.querySelector('input[type="file"]');
