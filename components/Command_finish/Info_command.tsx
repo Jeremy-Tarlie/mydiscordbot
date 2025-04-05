@@ -279,7 +279,7 @@ const Info_command = ({
         </div>
 
         <Turnstile
-          siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ""} // Clé publique Turnstile
+          siteKey={"0x4AAAAAAA_zcyFCD4RvhZdK"} // Clé publique Turnstile
           onSuccess={(token) => setTurnstileToken(token)} // Stocke le token
           onError={() => toast.error("Erreur CAPTCHA.")}
         />
