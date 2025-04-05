@@ -77,8 +77,6 @@ const Info_command = ({
     }
   };
 
-  console.log(process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY);
-  
   return (
     <div className={style.info_commande}>
       <div className={style.info_card}>
