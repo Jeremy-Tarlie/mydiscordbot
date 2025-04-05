@@ -16,10 +16,6 @@ RUN npm list --depth=0
 # Étape 5 : Copier le reste du code source dans le conteneur
 COPY . .
 
-# Définir les arguments pour les variables d'environnement NEXT_PUBLIC_*
-ARG NEXT_PUBLIC_TURNSTILE_SITE_KEY
-ENV NEXT_PUBLIC_TURNSTILE_SITE_KEY=$NEXT_PUBLIC_TURNSTILE_SITE_KEY
-
 # Étape 6 : Construire l'application Next.js pour la production
 RUN npm run build
 
