@@ -1,5 +1,7 @@
 {
   "add_command": "Add a command",
+  "search_placeholder": "Search for a command...",
+  "search_label": "Search :",
   "techno": "Technology used: JavaScript",
   "info": {
     "partie1": "You can select up to 20 commands at no additional cost. Beyond 20, an additional fee of €1 will be applied for every 3 extra commands.",

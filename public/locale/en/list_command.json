@@ -1,84 +1,378 @@
 {
-    "tech": "JavaScript",
-    "prefix": "/",
-    "list_command": [
-        {
-            "name": "help",
-            "description": "Provides all the commands available in the bot",
-            "delay": 1,
-            "price": 1
-        },
-        {
-            "name": "ban",
-            "description": "Bans mentioned users with a specified duration and reason",
-            "delay": 1,
-            "price": 1
-        },
-        {
-            "name": "unban",
-            "description": "Unbans users with a specified reason",
-            "delay": 1,
-            "price": 1
-        },
-        {
-            "name": "level",
-            "description": "Shows the level of the user or the mentioned person",
-            "delay": 1,
-            "price": 1
-        },
-        {
-            "name": "level-clear",
-            "description": "Resets the user's level to 0",
-            "delay": 1,
-            "price": 1
-        },
-        {
-            "name": "level-give",
-            "description": "Grants XP or levels to a user",
-            "delay": 1,
-            "price": 1
-        },
-        {
-            "name": "level-remove",
-            "description": "Removes XP or levels from a user",
-            "delay": 1,
-            "price": 1
-        },
-        {
-            "name": "level-top",
-            "description": "Shows the top 3 users with the highest levels",
-            "delay": 1,
-            "price": 1
-        },
-        {
-            "name": "money",
-            "description": "Displays the money of the user or the mentioned person",
-            "delay": 1,
-            "price": 1
-        },
-        {
-            "name": "eco-clear",
-            "description": "Resets the user's money to 0",
-            "delay": 1,
-            "price": 1
-        },
-        {
-            "name": "eco-give",
-            "description": "Grants money to a user",
-            "delay": 1,
-            "price": 1
-        },
-        {
-            "name": "eco-remove",
-            "description": "Removes money from a user",
-            "delay": 1,
-            "price": 1
-        },
-        {
-            "name": "eco-top",
-            "description": "Shows the top 3 users with the most money",
-            "delay": 1,
-            "price": 1
-        }
-    ]
+  "tech": "JavaScript",
+  "prefix": "/",
+  "list_command": [
+    {
+      "name": "ban",
+      "description": "Ban a user from the server",
+      "delay": 1,
+      "price": 1
+    },
+    {
+      "name": "unban",
+      "description": "Unban a user from the server",
+      "delay": 1,
+      "price": 1
+    },
+    {
+      "name": "kick",
+      "description": "Kick a user from the server",
+      "delay": 1,
+      "price": 1
+    },
+    {
+      "name": "clear",
+      "description": "Delete a specific number of messages in a channel",
+      "delay": 1,
+      "price": 1
+    },
+    {
+      "name": "mute",
+      "description": "Mute a member on the server",
+      "delay": 1,
+      "price": 1
+    },
+    {
+      "name": "unmute",
+      "description": "Unmute a member on the server",
+      "delay": 1,
+      "price": 1
+    },
+    {
+      "name": "slowmode",
+      "description": "Change the slow mode of a channel",
+      "delay": 1,
+      "price": 1
+    },
+    {
+      "name": "lock",
+      "description": "Lock a channel for everyone",
+      "delay": 1,
+      "price": 1
+    },
+    {
+      "name": "unlock",
+      "description": "Unlock a channel",
+      "delay": 1,
+      "price": 1
+    },
+    {
+      "name": "setup-suggestions",
+      "description": "Set up the suggestions channel",
+      "delay": 1,
+      "price": 1
+    },
+    {
+      "name": "warn",
+      "description": "Warn a user",
+      "delay": 1,
+      "price": 1
+    },
+    {
+      "name": "infractions",
+      "description": "View a user's warnings",
+      "delay": 1,
+      "price": 1
+    },
+    {
+      "name": "level",
+      "description": "Display a user's level and XP",
+      "delay": 1,
+      "price": 1
+    },
+    {
+      "name": "level-give",
+      "description": "Add XP to a user",
+      "delay": 1,
+      "price": 1
+    },
+    {
+      "name": "level-remove",
+      "description": "Remove XP from a user",
+      "delay": 1,
+      "price": 1
+    },
+    {
+      "name": "level-clear",
+      "description": "Reset all server levels",
+      "delay": 1,
+      "price": 1
+    },
+    {
+      "name": "level-top",
+      "description": "Display the top 10 users by XP",
+      "delay": 1,
+      "price": 1
+    },
+    {
+      "name": "level-top-server",
+      "description": "Display the top 10 users on the server",
+      "delay": 1,
+      "price": 1
+    },
+    {
+      "name": "level-vanish",
+      "description": "Enable vanish mode to hide a user from leaderboards",
+      "delay": 1,
+      "price": 1
+    },
+    {
+      "name": "level-vanish-off",
+      "description": "Disable vanish mode for a user",
+      "delay": 1,
+      "price": 1
+    },
+    {
+      "name": "level-freeze",
+      "description": "Freeze XP gains for a user",
+      "delay": 1,
+      "price": 1
+    },
+    {
+      "name": "level-freeze-off",
+      "description": "Unfreeze XP gains for a user",
+      "delay": 1,
+      "price": 1
+    },
+    {
+      "name": "money",
+      "description": "Display a user's balance",
+      "delay": 1,
+      "price": 1
+    },
+    {
+      "name": "daily",
+      "description": "Claim a daily reward",
+      "delay": 1,
+      "price": 1
+    },
+    {
+      "name": "deposit",
+      "description": "Deposit money into the bank",
+      "delay": 1,
+      "price": 1
+    },
+    {
+      "name": "withdraw",
+      "description": "Withdraw money from the bank",
+      "delay": 1,
+      "price": 1
+    },
+    {
+      "name": "transfer",
+      "description": "Transfer money to another user",
+      "delay": 1,
+      "price": 1
+    },
+    {
+      "name": "eco-give",
+      "description": "Add money to a user",
+      "delay": 1,
+      "price": 1
+    },
+    {
+      "name": "eco-remove",
+      "description": "Remove money from a user",
+      "delay": 1,
+      "price": 1
+    },
+    {
+      "name": "eco-clear",
+      "description": "Reset a user's economy",
+      "delay": 1,
+      "price": 1
+    },
+    {
+      "name": "eco-top",
+      "description": "Display the leaderboard of the richest users",
+      "delay": 1,
+      "price": 1
+    },
+    {
+      "name": "avatar",
+      "description": "Display a user's avatar in large format",
+      "delay": 1,
+      "price": 1
+    },
+    {
+      "name": "emote-info",
+      "description": "Display information about an emoji",
+      "delay": 1,
+      "price": 1
+    },
+    {
+      "name": "help",
+      "description": "Display the list of available commands or details of a specific command",
+      "delay": 1,
+      "price": 1
+    },
+    {
+      "name": "list-roles",
+      "description": "List all server roles",
+      "delay": 1,
+      "price": 1
+    },
+    {
+      "name": "ping",
+      "description": "Display the bot's ping",
+      "delay": 1,
+      "price": 1
+    },
+    {
+      "name": "poll",
+      "description": "Create a poll with up to 10 options",
+      "delay": 1,
+      "price": 1
+    },
+    {
+      "name": "remind",
+      "description": "Create a reminder",
+      "delay": 1,
+      "price": 1
+    },
+    {
+      "name": "serverinfo",
+      "description": "Display detailed information about the server",
+      "delay": 1,
+      "price": 1
+    },
+    {
+      "name": "server-stats",
+      "description": "Display server statistics",
+      "delay": 1,
+      "price": 1
+    },
+    {
+      "name": "userinfo",
+      "description": "Display detailed information about a user",
+      "delay": 1,
+      "price": 1
+    },
+    {
+      "name": "activity",
+      "description": "View a member's activity",
+      "delay": 1,
+      "price": 1
+    },
+    {
+      "name": "voice-time",
+      "description": "View the time a member has spent in voice channels",
+      "delay": 1,
+      "price": 1
+    },
+    {
+      "name": "suggest",
+      "description": "Propose an idea to the staff (goes to a dedicated channel)",
+      "delay": 1,
+      "price": 1
+    },
+    {
+      "name": "roleinfo",
+      "description": "Details about a role (members, permissions)",
+      "delay": 1,
+      "price": 1
+    },
+    {
+      "name": "invite",
+      "description": "Bot invitation link",
+      "delay": 1,
+      "price": 1
+    },
+    {
+      "name": "vote",
+      "description": "Create a quick vote (different from /poll)",
+      "delay": 1,
+      "price": 1
+    },
+    {
+      "name": "say",
+      "description": "Make the bot speak in another channel",
+      "delay": 1,
+      "price": 1
+    },
+    {
+      "name": "coinflip",
+      "description": "Flip a coin",
+      "delay": 1,
+      "price": 1
+    },
+    {
+      "name": "dice",
+      "description": "Roll one or more dice",
+      "delay": 1,
+      "price": 1
+    },
+    {
+      "name": "rps",
+      "description": "Play rock-paper-scissors",
+      "delay": 1,
+      "price": 1
+    },
+    {
+      "name": "trivia",
+      "description": "Ask a random general knowledge question",
+      "delay": 1,
+      "price": 1
+    },
+    {
+      "name": "guess-number",
+      "description": "The bot thinks of a number, and the user must guess it",
+      "delay": 1,
+      "price": 1
+    },
+    {
+      "name": "8ball",
+      "description": "Ask a question and get a random answer",
+      "delay": 1,
+      "price": 1
+    },
+    {
+      "name": "hug",
+      "description": "Give a hug to a member",
+      "delay": 1,
+      "price": 1
+    },
+    {
+      "name": "kiss",
+      "description": "Give a kiss to a member",
+      "delay": 1,
+      "price": 1
+    },
+    {
+      "name": "slap",
+      "description": "Slap a member",
+      "delay": 1,
+      "price": 1
+    },
+    {
+      "name": "dog",
+      "description": "Send a random dog image",
+      "delay": 1,
+      "price": 1
+    },
+    {
+      "name": "cat",
+      "description": "Send a random cat image",
+      "delay": 1,
+      "price": 1
+    },
+    {
+      "name": "fakeban",
+      "description": "Pretend to ban someone",
+      "delay": 1,
+      "price": 1
+    },
+    {
+      "name": "gif",
+      "description": "Search for a GIF by keyword",
+      "delay": 1,
+      "price": 1
+    },
+    {
+      "name": "quote",
+      "description": "Get a random quote",
+      "delay": 1,
+      "price": 1
+    }
+  ]
 }

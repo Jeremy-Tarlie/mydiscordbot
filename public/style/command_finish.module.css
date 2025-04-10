@@ -22,11 +22,28 @@
   max-width: 1200px;
 }
 
+.search_container {
+  margin-bottom: 1rem;
+  padding: 0 5px;
+}
+
+.search_input {
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  outline: none;
+}
+
+.search_input:focus {
+  border-color: #007bff;
+}
+
 .commandes_list {
   width: 50%;
   max-height: 1500px;
   overflow-y: auto;
-  background: linear-gradient(135deg, #2B2D31, #313338);
+  background: linear-gradient(135deg, #2b2d31, #313338);
   border-radius: 16px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
   padding: 25px;
@@ -85,7 +102,7 @@
 
 .search_input {
   width: 100%;
-  padding: 10px 15px 10px 35px;
+  padding: 10px 15px 10px 15px;
   border-radius: 8px;
   border: 1px solid var(--background-lighter);
   background-color: var(--background-light);
@@ -176,7 +193,7 @@
 }
 
 .commande input[type="checkbox"]:checked:after {
-  content: '';
+  content: "";
   position: absolute;
   left: 7px;
   top: 3px;
@@ -263,7 +280,11 @@
 }
 
 .add_button {
-  background: linear-gradient(to right, var(--primary-color), var(--primary-hover));
+  background: linear-gradient(
+    to right,
+    var(--primary-color),
+    var(--primary-hover)
+  );
   color: white;
   border: none;
   padding: 12px 20px;
@@ -282,7 +303,7 @@
 }
 
 .other_command {
-  background: linear-gradient(135deg, #2B2D31, #313338);
+  background: linear-gradient(135deg, #2b2d31, #313338);
   border-radius: 12px;
   padding: 25px;
   margin-top: 30px;
@@ -299,7 +320,7 @@
 }
 
 .other_command h3::before {
-  content: '';
+  content: "";
   position: absolute;
   left: 0;
   top: 50%;
@@ -360,7 +381,11 @@
 }
 
 .add_button {
-  background: linear-gradient(to right, var(--primary-color), var(--primary-hover));
+  background: linear-gradient(
+    to right,
+    var(--primary-color),
+    var(--primary-hover)
+  );
   color: white;
   border: none;
   padding: 14px 22px;
@@ -395,11 +420,11 @@
   .other_command {
     padding: 20px;
   }
-  
+
   .custom_command_form {
     gap: 15px;
   }
-  
+
   .add_button {
     width: 100%;
     margin-top: 10px;
@@ -411,13 +436,13 @@
     flex-direction: column;
     align-items: center;
   }
-  
+
   .commandes_list {
     width: 90%;
     max-width: 600px;
     margin-bottom: 30px;
   }
-  
+
   .command_actions {
     flex-direction: column;
     align-items: stretch;

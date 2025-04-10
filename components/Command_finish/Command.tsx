@@ -38,6 +38,15 @@ const Command: React.FC<CommandProps> = ({ bot, setBot }) => {
   const [selectedCommands, setSelectedCommands] = useState<
     { name: string; description: string; custom?: boolean }[]
   >([]);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const filteredCommands = useMemo(() => {
+    return commands.filter(
+      (command) =>
+        command.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        command.description.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  }, [commands, searchTerm]);
 
   const additionalCost = useMemo(() => {
     const totalCommands = selectedCommands.length;
@@ -103,8 +112,7 @@ const Command: React.FC<CommandProps> = ({ bot, setBot }) => {
   };
 
   const command_select =
-    (command: { name: string; description: string }) =>
-    () => {
+    (command: { name: string; description: string }) => () => {
       const isSelected = selectedCommands.some(
         (selected) => selected.name === command.name
       );
@@ -117,8 +125,11 @@ const Command: React.FC<CommandProps> = ({ bot, setBot }) => {
         setBot((prevBot: Bot) => ({
           ...prevBot,
           command: (prevBot.command || []).filter(
-            (selected: { name: string; description: string; custom?: boolean }) =>
-              selected.name !== command.name
+            (selected: {
+              name: string;
+              description: string;
+              custom?: boolean;
+            }) => selected.name !== command.name
           ),
         }));
       } else {
@@ -133,8 +144,20 @@ const Command: React.FC<CommandProps> = ({ bot, setBot }) => {
 
   return (
     <div className={style.commandes_list}>
+      <div className={style.search_container}>
+        <label htmlFor="search" className={style.search_label}>
+          {t("search_label")}
+        </label>
+        <input
+          type="search"
+          placeholder={t("search_placeholder")}
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className={style.search_input}
+        />
+      </div>
       <ul className={style.command_list_ul}>
-        {commands.map((command) => (
+        {filteredCommands.map((command) => (
           <li
             key={command.name}
             className={style.commande}
