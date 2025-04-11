@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+Allow: /fr
+Allow: /en
+Allow: /privacy-policy
+Allow: /command
+
+Sitemap: https://mydiscordbot.com/sitemap.xml
+
+# Optimisations pour les crawlers
+Crawl-delay: 10 

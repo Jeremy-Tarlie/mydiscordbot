@@ -12,54 +12,55 @@ export default function HomePage() {
 
   return (
     <main className={styles.main}>
-      <section className={styles.hero}>
+      <section className={styles.hero} role="banner">
         <div className={styles.heroContent}>
-          <h1 className={styles.heroTitle}>{t("home_title")}</h1>
-          <p className={styles.heroDescription}>{t("home_description")}</p>
-          <Link href={`/${locale}/command`} className={styles.ctaButton}>
+          <h1 className={styles.heroTitle} itemProp="headline">{t("home_title")}</h1>
+          <p className={styles.heroDescription} itemProp="description">{t("home_description")}</p>
+          <Link href={`/${locale}/command`} className={styles.ctaButton} role="button" aria-label={t("home_description_button")}>
             {t("home_description_button")}
           </Link>
         </div>
         <div className={styles.heroImageContainer}>
           <Image
             src="/img/bot.webp"
-            alt="Image hero"
+            alt="Bot Discord personnalisé - Image d'illustration"
             width={600}
             height={600}
             className={styles.heroImage}
             priority
+            loading="eager"
           />
         </div>
       </section>
 
-      <section className={styles.features}>
-        <h2 className={styles.sectionTitle}>{t("features_title")}</h2>
+      <section className={styles.features} role="region" aria-label={t("features_title")}>
+        <h2 className={styles.sectionTitle} itemProp="about">{t("features_title")}</h2>
 
-        <div className={styles.featureCard}>
+        <div className={styles.featureCard} itemScope itemType="http://schema.org/Service">
           <div className={styles.featureImageWrapper}>
             <Image
               src="/img/bot-view.svg"
-              alt="Bot view"
+              alt="Interface de configuration du bot Discord"
               width={500}
               height={500}
               className={styles.featureImage}
             />
           </div>
           <div className={styles.featureContent}>
-            <h3>{t("bubble1.title")}</h3>
-            <p>{t("bubble1.description")}</p>
+            <h3 itemProp="name">{t("bubble1.title")}</h3>
+            <p itemProp="description">{t("bubble1.description")}</p>
           </div>
         </div>
 
-        <div className={`${styles.featureCard} ${styles.reverse}`}>
+        <div className={`${styles.featureCard} ${styles.reverse}`} itemScope itemType="http://schema.org/Service">
           <div className={styles.featureContent}>
-            <h3>{t("bubble2.title")}</h3>
-            <p>{t("bubble2.description")}</p>
+            <h3 itemProp="name">{t("bubble2.title")}</h3>
+            <p itemProp="description">{t("bubble2.description")}</p>
           </div>
           <div className={styles.featureImageWrapper}>
             <Image
               src="/img/bot-chat.svg"
-              alt="Bot chat"
+              alt="Interface de chat du bot Discord"
               width={500}
               height={500}
               className={styles.featureImage}
@@ -67,27 +68,27 @@ export default function HomePage() {
           </div>
         </div>
 
-        <div className={styles.featureCard}>
+        <div className={styles.featureCard} itemScope itemType="http://schema.org/Service">
           <div className={styles.featureImageWrapper}>
             <Image
               src="/img/bot-command.svg"
-              alt="Bot command"
+              alt="Interface de commandes du bot Discord"
               width={500}
               height={500}
               className={styles.featureImage}
             />
           </div>
           <div className={styles.featureContent}>
-            <h3>{t("bubble3.title")}</h3>
-            <p>{t("bubble3.description")}</p>
+            <h3 itemProp="name">{t("bubble3.title")}</h3>
+            <p itemProp="description">{t("bubble3.description")}</p>
           </div>
         </div>
       </section>
 
-      <section className={styles.callToAction}>
-        <h2>{t("cta_title")}</h2>
+      <section className={styles.callToAction} role="complementary">
+        <h2 itemProp="offers">{t("cta_title")}</h2>
         <p>{t("cta_description")}</p>
-        <Link href={`/${locale}/command`} className={styles.ctaButton}>
+        <Link href={`/${locale}/command`} className={styles.ctaButton} role="button" aria-label={t("home_description_button")}>
           {t("home_description_button")}
         </Link>
       </section>
