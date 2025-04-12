@@ -126,6 +126,16 @@ export default function RootLayout({ children }: LayoutProps) {
             }),
           }}
         />
+        <script async src="https://www.googletagmanager.com/gtag/js?id=AW-16998998043">
+        </script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+           dataLayer.push(arguments); 
+          }
+          gtag('js', new Date());
+          gtag('config', 'AW-16998998043');
+        </script>
       </head>
 
       <NextIntlClientProvider locale={locale || "fr"} messages={messages}>
