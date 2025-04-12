@@ -16,7 +16,7 @@ type Bot = {
     discord: string;
     email: string;
   };
-  command?: Array<{ name: string; description: string; custom?: boolean }>;
+  command?: Array<{ name: string; description: string; custom?: boolean; delay?: number; price?: number; category?: string }>;
   price: number;
 };
 
@@ -60,7 +60,7 @@ const Command_finish = () => {
       
       <div className={styles.container_commande}>
         <Toaster position="top-center" reverseOrder={false} />
-        <Command bot={bot} setBot={setBot} />
+        <Command setBot={setBot} />
         <Info_command bot={bot} setBot={setBot} />
       </div>
     </main>

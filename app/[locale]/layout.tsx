@@ -88,18 +88,19 @@ export default function RootLayout({ children }: LayoutProps) {
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "WebSite",
-              "name": "My Discord Bot",
-              "url": "https://mydiscordbot.com",
-              "potentialAction": {
+              name: "My Discord Bot",
+              url: "https://mydiscordbot.com",
+              potentialAction: {
                 "@type": "SearchAction",
-                "target": "https://mydiscordbot.com/search?q={search_term_string}",
-                "query-input": "required name=search_term_string"
+                target:
+                  "https://mydiscordbot.com/search?q={search_term_string}",
+                "query-input": "required name=search_term_string",
               },
-              "sameAs": [
+              sameAs: [
                 "https://twitter.com/khraii",
-                "https://discord.gg/mydiscordbot"
-              ]
-            })
+                "https://discord.gg/mydiscordbot",
+              ],
+            }),
           }}
         />
         <script
@@ -108,21 +109,21 @@ export default function RootLayout({ children }: LayoutProps) {
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "SoftwareApplication",
-              "name": "My Discord Bot",
-              "applicationCategory": "UtilityApplication",
-              "operatingSystem": "Discord",
-              "offers": {
+              name: "My Discord Bot",
+              applicationCategory: "UtilityApplication",
+              operatingSystem: "Discord",
+              offers: {
                 "@type": "Offer",
-                "price": "0",
-                "priceCurrency": "EUR"
+                price: "0",
+                priceCurrency: "EUR",
               },
-              "description": "Service de création de bots Discord personnalisés",
-              "aggregateRating": {
+              description: "Service de création de bots Discord personnalisés",
+              aggregateRating: {
                 "@type": "AggregateRating",
-                "ratingValue": "4.8",
-                "ratingCount": "150"
-              }
-            })
+                ratingValue: "4.8",
+                ratingCount: "150",
+              },
+            }),
           }}
         />
       </head>

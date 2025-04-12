@@ -7,6 +7,15 @@ import { useLocale } from "next-intl";
 import { useState, useMemo, useEffect } from "react";
 import { toast } from "react-hot-toast";
 
+type Command = {
+  name: string;
+  description: string;
+  delay?: number;
+  price?: number;
+  category?: string;
+  custom?: boolean;
+};
+
 type Bot = {
   bot_view: {
     name: string;
@@ -18,34 +27,41 @@ type Bot = {
     discord: string;
     email: string;
   };
-  command?: Array<{ name: string; description: string; custom?: boolean }>;
+  command?: Command[];
   price: number;
 };
 
 interface CommandProps {
-  bot: Bot;
+  bot?: Bot;
   setBot: React.Dispatch<React.SetStateAction<Bot>>;
 }
 
-const Command: React.FC<CommandProps> = ({ bot, setBot }) => {
+const Command: React.FC<CommandProps> = ({ setBot }) => {
   const locale = useLocale();
   const initialCommands =
     locale === "fr"
       ? list_command_fr.list_command
       : list_command_en.list_command;
   const t = useTranslations("command_finish");
-  const [commands, setCommands] = useState(initialCommands);
-  const [selectedCommands, setSelectedCommands] = useState<
-    { name: string; description: string; custom?: boolean }[]
-  >([]);
+  const [commands, setCommands] = useState<Command[]>(initialCommands);
+  const [selectedCommands, setSelectedCommands] = useState<Command[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
 
-  const filteredCommands = useMemo(() => {
-    return commands.filter(
+  const groupedCommands = useMemo(() => {
+    const filtered = commands.filter(
       (command) =>
         command.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         command.description.toLowerCase().includes(searchTerm.toLowerCase())
     );
+
+    return filtered.reduce((acc, command) => {
+      const category = command.category || "Sans catégorie";
+      if (!acc[category]) {
+        acc[category] = [];
+      }
+      acc[category].push(command);
+      return acc;
+    }, {} as Record<string, Command[]>);
   }, [commands, searchTerm]);
 
   const additionalCost = useMemo(() => {
@@ -67,11 +83,12 @@ const Command: React.FC<CommandProps> = ({ bot, setBot }) => {
   }, [selectedCommands]);
 
   useEffect(() => {
-    setBot((prevBot: Bot) => ({
+    setBot((prevBot) => ({
       ...prevBot,
       price: additionalCost + 5,
+      command: selectedCommands,
     }));
-  }, [additionalCost]);
+  }, [additionalCost, selectedCommands, setBot]);
 
   const addCommand = () => {
     const commandName = document.getElementById(
@@ -86,19 +103,14 @@ const Command: React.FC<CommandProps> = ({ bot, setBot }) => {
     );
 
     if (commandName.value && textareaCommand.value && !commandExist) {
-      const newCommand = {
+      const newCommand: Command = {
         name: commandName.value,
         description: textareaCommand.value,
-        delay: 0,
-        price: 5,
+        category: "Sans catégorie",
         custom: true,
       };
 
       setCommands((prev) => [...prev, newCommand]);
-      setBot({
-        ...bot,
-        command: [...(bot.command || []), newCommand],
-      });
       setSelectedCommands((prev) => [...prev, newCommand]);
 
       commandName.value = "";
@@ -111,36 +123,19 @@ const Command: React.FC<CommandProps> = ({ bot, setBot }) => {
     }
   };
 
-  const command_select =
-    (command: { name: string; description: string }) => () => {
-      const isSelected = selectedCommands.some(
-        (selected) => selected.name === command.name
+  const toggleCommand = (command: Command) => {
+    const isSelected = selectedCommands.some(
+      (selected) => selected.name === command.name
+    );
+
+    if (isSelected) {
+      setSelectedCommands((prev) =>
+        prev.filter((selected) => selected.name !== command.name)
       );
-
-      if (isSelected) {
-        setSelectedCommands((prev) =>
-          prev.filter((selected) => selected.name !== command.name)
-        );
-
-        setBot((prevBot: Bot) => ({
-          ...prevBot,
-          command: (prevBot.command || []).filter(
-            (selected: {
-              name: string;
-              description: string;
-              custom?: boolean;
-            }) => selected.name !== command.name
-          ),
-        }));
-      } else {
-        setSelectedCommands((prev) => [...prev, command]);
-
-        setBot((prevBot: Bot) => ({
-          ...prevBot,
-          command: [...(prevBot.command || []), command],
-        }));
-      }
-    };
+    } else {
+      setSelectedCommands((prev) => [...prev, command]);
+    }
+  };
 
   return (
     <div className={style.commandes_list}>
@@ -150,32 +145,39 @@ const Command: React.FC<CommandProps> = ({ bot, setBot }) => {
         </label>
         <input
           type="search"
+          id="search"
           placeholder={t("search_placeholder")}
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           className={style.search_input}
         />
       </div>
+
       <ul className={style.command_list_ul}>
-        {filteredCommands.map((command) => (
-          <li
-            key={command.name}
-            className={style.commande}
-            onClick={command_select(command)}
-          >
-            <input
-              className="checkbox"
-              type="checkbox"
-              onChange={(e) => e.stopPropagation()}
-              checked={selectedCommands.some(
-                (selected) => selected.name === command.name
-              )}
-            />
-            <label>
-              <strong>{command.name}</strong>
-              <span>{` : ${command.description}`}</span>
-            </label>
-          </li>
+        {Object.entries(groupedCommands).map(([category, categoryCommands]) => (
+          <div key={category}>
+            <h3 className={style.category_title}>{category}</h3>
+            {categoryCommands.map((command) => (
+              <li
+                key={command.name}
+                className={style.commande}
+                onClick={() => toggleCommand(command)}
+              >
+                <input
+                  className="checkbox"
+                  type="checkbox"
+                  onChange={(e) => e.stopPropagation()}
+                  checked={selectedCommands.some(
+                    (selected) => selected.name === command.name
+                  )}
+                />
+                <label>
+                  <strong>{command.name}</strong>
+                  <span>{` : ${command.description}`}</span>
+                </label>
+              </li>
+            ))}
+          </div>
         ))}
 
         <li className={style.other_command}>
