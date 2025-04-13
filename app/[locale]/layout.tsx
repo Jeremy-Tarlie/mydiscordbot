@@ -123,9 +123,8 @@ export default function RootLayout({ children }: LayoutProps) {
                 "query-input": "required name=search_term_string",
               },
               sameAs: [
-                "https://twitter.com/khraii",
-                "https://discord.gg/mydiscordbot",
-                "https://github.com/mydiscordbot",
+                "https://discord.gg/bhfFEwpkBK",
+                "https://github.com/Jeremy-Tarlie",
               ],
             }),
           }}
