@@ -22,44 +22,51 @@ interface LayoutProps {
 export const metadata: Metadata = {
   title: {
     absolute: "",
-    default: "My Discord Bot - Créez votre bot Discord personnalisé",
-    template: "%s | My Discord Bot",
+    default:
+      "MyDiscordBot - Le Créateur de Bots Discord Personnalisés | Service Officiel",
+    template: "%s | MyDiscordBot",
   },
   description:
-    "Créez votre bot Discord personnalisé avec My Discord Bot. Solutions sur mesure pour la modération, les mini-jeux et la gestion de communauté. Service professionnel et hébergement disponible.",
+    "MyDiscordBot est le service officiel de création de bots Discord personnalisés. Créez votre bot sur mesure pour la modération, les mini-jeux et la gestion de communauté. Service professionnel et hébergement disponible.",
   keywords:
-    "discord bot, bot discord personnalisé, création bot discord, bot modération discord, bot sur mesure, développement bot discord",
-  authors: [{ name: "khraii" }],
-  creator: "khraii",
-  publisher: "My Discord Bot",
+    "mydiscordbot, my discord bot, bot discord, création bot discord, bot discord personnalisé, bot modération discord, bot sur mesure, développement bot discord, discord bot maker, discord bot creator",
+  authors: [{ name: "khraii - Créateur de MyDiscordBot" }],
+  creator: "MyDiscordBot",
+  publisher: "MyDiscordBot",
   robots: {
     index: true,
     follow: true,
+    "max-snippet": -1,
+    "max-image-preview": "large",
+    "max-video-preview": -1,
   },
   openGraph: {
     type: "website",
     locale: "fr_FR",
     url: "https://mydiscordbot.com",
-    siteName: "My Discord Bot",
-    title: "My Discord Bot - Créez votre bot Discord personnalisé",
+    siteName: "MyDiscordBot",
+    title:
+      "MyDiscordBot - Le Créateur de Bots Discord Personnalisés | Service Officiel",
     description:
-      "Créez votre bot Discord personnalisé avec My Discord Bot. Solutions sur mesure pour la modération, les mini-jeux et la gestion de communauté.",
+      "MyDiscordBot est le service officiel de création de bots Discord personnalisés. Créez votre bot sur mesure pour la modération, les mini-jeux et la gestion de communauté.",
     images: [
       {
         url: "/img/bot.webp",
         width: 600,
         height: 600,
-        alt: "My Discord Bot Logo",
+        alt: "MyDiscordBot - Logo Officiel",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "My Discord Bot - Créez votre bot Discord personnalisé",
+    title:
+      "MyDiscordBot - Le Créateur de Bots Discord Personnalisés | Service Officiel",
     description:
-      "Créez votre bot Discord personnalisé avec My Discord Bot. Solutions sur mesure pour la modération, les mini-jeux et la gestion de communauté.",
+      "MyDiscordBot est le service officiel de création de bots Discord personnalisés. Créez votre bot sur mesure pour la modération, les mini-jeux et la gestion de communauté.",
     images: ["/img/bot.webp"],
     creator: "@khraii",
+    site: "@MyDiscordBot",
   },
   icons: {
     icon: "/logo.ico",
@@ -88,8 +95,27 @@ export default function RootLayout({ children }: LayoutProps) {
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "WebSite",
-              name: "My Discord Bot",
+              name: "MyDiscordBot",
+              alternateName: [
+                "My Discord Bot",
+                "MyDiscordBot.com",
+                "mydiscordbot.com",
+                "my discord bot",
+                "my discord bot creator",
+                "my discord bot maker",
+                "my discord bot modération",
+                "my discord bot mini-jeux",
+                "my discord bot gestion de communauté",
+                "mydiscordbot",
+                "mydiscordbot creator",
+                "mydiscordbot maker",
+                "mydiscordbot modération",
+                "mydiscordbot mini-jeux",
+                "mydiscordbot gestion de communauté",
+              ],
               url: "https://mydiscordbot.com",
+              description:
+                "Service officiel de création de bots Discord personnalisés",
               potentialAction: {
                 "@type": "SearchAction",
                 target:
@@ -99,6 +125,7 @@ export default function RootLayout({ children }: LayoutProps) {
               sameAs: [
                 "https://twitter.com/khraii",
                 "https://discord.gg/mydiscordbot",
+                "https://github.com/mydiscordbot",
               ],
             }),
           }}
@@ -109,7 +136,7 @@ export default function RootLayout({ children }: LayoutProps) {
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "SoftwareApplication",
-              name: "My Discord Bot",
+              name: "MyDiscordBot",
               applicationCategory: "UtilityApplication",
               operatingSystem: "Discord",
               offers: {
@@ -117,12 +144,46 @@ export default function RootLayout({ children }: LayoutProps) {
                 price: "0",
                 priceCurrency: "EUR",
               },
-              description: "Service de création de bots Discord personnalisés",
+              description:
+                "Service officiel de création de bots Discord personnalisés",
               aggregateRating: {
                 "@type": "AggregateRating",
                 ratingValue: "4.8",
                 ratingCount: "150",
               },
+              author: {
+                "@type": "Person",
+                name: "khraii",
+                url: "https://mydiscordbot.com/about",
+              },
+              brand: {
+                "@type": "Brand",
+                name: "MyDiscordBot",
+                logo: "https://mydiscordbot.com/logo.ico",
+              },
+            }),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "MyDiscordBot",
+              url: "https://mydiscordbot.com",
+              logo: "https://mydiscordbot.com/logo.ico",
+              description:
+                "Service officiel de création de bots Discord personnalisés",
+              founder: {
+                "@type": "Person",
+                name: "khraii",
+              },
+              sameAs: [
+                "https://twitter.com/khraii",
+                "https://discord.gg/mydiscordbot",
+                "https://github.com/mydiscordbot",
+              ],
             }),
           }}
         />
