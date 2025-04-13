@@ -179,9 +179,8 @@ export default function RootLayout({ children }: LayoutProps) {
                 name: "khraii",
               },
               sameAs: [
-                "https://twitter.com/khraii",
-                "https://discord.gg/mydiscordbot",
-                "https://github.com/mydiscordbot",
+                "https://discord.gg/bhfFEwpkBK",
+                "https://github.com/Jeremy-Tarlie",
               ],
             }),
           }}
