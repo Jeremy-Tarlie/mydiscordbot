@@ -82,7 +82,7 @@ export async function POST(req: NextRequest) {
       // Options pour l'email principal
       const mailOptions = {
         from: process.env.SMTP_USER,
-        to: [process.env.SMTP_USER, "contact@tarlie.fr"].filter(
+        to: [process.env.SMTP_USER].filter(
           Boolean
         ) as string[],
         subject: "Commande d'un bot",
