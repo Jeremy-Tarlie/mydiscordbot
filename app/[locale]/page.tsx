@@ -14,9 +14,18 @@ export default function HomePage() {
     <main className={styles.main}>
       <section className={styles.hero} role="banner">
         <div className={styles.heroContent}>
-          <h1 className={styles.heroTitle} itemProp="headline">{t("home_title")}</h1>
-          <p className={styles.heroDescription} itemProp="description">{t("home_description")}</p>
-          <Link href={`/${locale}/command`} className={styles.ctaButton} role="button" aria-label={t("home_description_button")}>
+          <h1 className={styles.heroTitle} itemProp="headline">
+            {t("home_title")}
+          </h1>
+          <p className={styles.heroDescription} itemProp="description">
+            {t("home_description")}
+          </p>
+          <Link
+            href={`/${locale}/command`}
+            className={styles.ctaButton}
+            role="button"
+            aria-label={t("home_description_button")}
+          >
             {t("home_description_button")}
           </Link>
         </div>
@@ -33,10 +42,19 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className={styles.features} role="region" aria-label={t("features_title")}>
-        <h2 className={styles.sectionTitle} itemProp="about">{t("features_title")}</h2>
-
-        <div className={styles.featureCard} itemScope itemType="http://schema.org/Service">
+      <h2 className={styles.sectionTitle} itemProp="about">
+        {t("features_title")}
+      </h2>
+      <section
+        className={styles.features}
+        role="region"
+        aria-label={t("features_title")}
+      >
+        <div
+          className={styles.featureCard}
+          itemScope
+          itemType="http://schema.org/Service"
+        >
           <div className={styles.featureImageWrapper}>
             <Image
               src="/img/bot-view.svg"
@@ -52,7 +70,11 @@ export default function HomePage() {
           </div>
         </div>
 
-        <div className={`${styles.featureCard} ${styles.reverse}`} itemScope itemType="http://schema.org/Service">
+        <div
+          className={`${styles.featureCard} ${styles.reverse}`}
+          itemScope
+          itemType="http://schema.org/Service"
+        >
           <div className={styles.featureContent}>
             <h3 itemProp="name">{t("bubble2.title")}</h3>
             <p itemProp="description">{t("bubble2.description")}</p>
@@ -68,7 +90,11 @@ export default function HomePage() {
           </div>
         </div>
 
-        <div className={styles.featureCard} itemScope itemType="http://schema.org/Service">
+        <div
+          className={styles.featureCard}
+          itemScope
+          itemType="http://schema.org/Service"
+        >
           <div className={styles.featureImageWrapper}>
             <Image
               src="/img/bot-command.svg"
@@ -88,7 +114,12 @@ export default function HomePage() {
       <section className={styles.callToAction} role="complementary">
         <h2 itemProp="offers">{t("cta_title")}</h2>
         <p>{t("cta_description")}</p>
-        <Link href={`/${locale}/command`} className={styles.ctaButton} role="button" aria-label={t("home_description_button")}>
+        <Link
+          href={`/${locale}/command`}
+          className={styles.ctaButton}
+          role="button"
+          aria-label={t("home_description_button")}
+        >
           {t("home_description_button")}
         </Link>
       </section>

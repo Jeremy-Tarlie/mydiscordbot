@@ -77,7 +77,7 @@ export async function POST(req: NextRequest) {
         )
         .join("");
 
-      const priceMounth = hostBot === "true" ? "10€/mois" : "0€/mois";
+      const priceMounth = hostBot === "true" ? "5€/mois" : "0€/mois";
 
       // Options pour l'email principal
       const mailOptions = {

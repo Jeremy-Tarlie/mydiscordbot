@@ -1,241 +1,472 @@
 {
-  "tech": "JavaScript",
+  "tech": "TypeScript",
   "prefix": "/",
   "list_command": [
     {
-      "name": "ban",
-      "description": "Bannir un utilisateur du serveur",
-      "delay": 1,
-      "price": 1,
-      "category": "Modération"
-    },
-    {
-      "name": "unban",
-      "description": "Débannir un utilisateur du serveur",
-      "delay": 1,
-      "price": 1,
-      "category": "Modération"
-    },
-    {
-      "name": "kick",
-      "description": "Expulser un utilisateur du serveur",
-      "delay": 1,
-      "price": 1,
-      "category": "Modération"
-    },
-    {
-      "name": "clear",
-      "description": "Supprimer un nombre spécifique de messages dans un salon",
-      "delay": 1,
-      "price": 1,
-      "category": "Modération"
-    },
-    {
-      "name": "mute",
-      "description": "Rendre muet un membre du serveur",
-      "delay": 1,
-      "price": 1,
-      "category": "Modération"
-    },
-    {
-      "name": "unmute",
-      "description": "Retirer le mute d'un membre du serveur",
-      "delay": 1,
-      "price": 1,
-      "category": "Modération"
-    },
-    {
-      "name": "slowmode",
-      "description": "Changer le mode lent d'un salon",
-      "delay": 1,
-      "price": 1,
-      "category": "Modération"
-    },
-    {
-      "name": "lock",
-      "description": "Fermer un salon pour tout le monde",
-      "delay": 1,
-      "price": 1,
-      "category": "Modération"
-    },
-    {
-      "name": "unlock",
-      "description": "Réouvrir un salon",
-      "delay": 1,
-      "price": 1,
-      "category": "Modération"
-    },
-    {
-      "name": "setup-suggestions",
-      "description": "Configure le salon pour les suggestions",
-      "delay": 1,
-      "price": 1,
-      "category": "Configuration"
-    },
-    {
-      "name": "warn",
-      "description": "Avertir un utilisateur",
-      "delay": 1,
-      "price": 1,
-      "category": "Modération"
-    },
-    {
-      "name": "infractions",
-      "description": "Voir les avertissements d'un utilisateur",
-      "delay": 1,
-      "price": 1,
-      "category": "Modération"
-    },
-    {
-      "name": "level",
-      "description": "Afficher le niveau et l'XP d'un utilisateur",
-      "delay": 1,
-      "price": 1,
-      "category": "Système de niveaux"
-    },
-    {
-      "name": "level-give",
-      "description": "Ajouter de l'XP à un utilisateur",
-      "delay": 1,
-      "price": 1,
-      "category": "Système de niveaux"
-    },
-    {
-      "name": "level-remove",
-      "description": "Retirer de l'XP à un utilisateur",
-      "delay": 1,
-      "price": 1,
-      "category": "Système de niveaux"
-    },
-    {
-      "name": "level-clear",
-      "description": "Réinitialiser tous les niveaux du serveur",
-      "delay": 1,
-      "price": 1,
-      "category": "Système de niveaux"
-    },
-    {
-      "name": "level-top",
-      "description": "Afficher le classement des 10 meilleurs utilisateurs par XP",
-      "delay": 1,
-      "price": 1,
-      "category": "Système de niveaux"
-    },
-    {
-      "name": "level-top-server",
-      "description": "Afficher le classement des 10 meilleurs utilisateurs du serveur",
-      "delay": 1,
-      "price": 1,
-      "category": "Système de niveaux"
-    },
-    {
-      "name": "level-vanish",
-      "description": "Activer le mode vanish pour cacher un utilisateur des classements",
-      "delay": 1,
-      "price": 1,
-      "category": "Système de niveaux"
-    },
-    {
-      "name": "level-vanish-off",
-      "description": "Désactiver le mode vanish pour un utilisateur",
-      "delay": 1,
-      "price": 1,
-      "category": "Système de niveaux"
-    },
-    {
-      "name": "level-freeze",
-      "description": "Geler les gains d'XP d'un utilisateur",
-      "delay": 1,
-      "price": 1,
-      "category": "Système de niveaux"
-    },
-    {
-      "name": "level-freeze-off",
-      "description": "Désactiver le gel des gains d'XP d'un utilisateur",
-      "delay": 1,
-      "price": 1,
-      "category": "Système de niveaux"
-    },
-    {
-      "name": "money",
-      "description": "Afficher le solde d'un utilisateur",
-      "delay": 1,
-      "price": 1,
-      "category": "Économie"
-    },
-    {
       "name": "daily",
-      "description": "Réclamer une récompense quotidienne",
+      "description": "Recevoir votre récompense quotidienne",
       "delay": 1,
       "price": 1,
-      "category": "Économie"
+      "category": "Economie"
     },
     {
       "name": "deposit",
-      "description": "Déposer de l'argent dans la banque",
+      "description": "Déposer de l'argent dans votre banque",
       "delay": 1,
       "price": 1,
-      "category": "Économie"
-    },
-    {
-      "name": "withdraw",
-      "description": "Retirer de l'argent de la banque",
-      "delay": 1,
-      "price": 1,
-      "category": "Économie"
-    },
-    {
-      "name": "transfer",
-      "description": "Transférer de l'argent à un autre utilisateur",
-      "delay": 1,
-      "price": 1,
-      "category": "Économie"
-    },
-    {
-      "name": "eco-give",
-      "description": "Ajouter de l'argent à un utilisateur",
-      "delay": 1,
-      "price": 1,
-      "category": "Économie"
-    },
-    {
-      "name": "eco-remove",
-      "description": "Retirer de l'argent à un utilisateur",
-      "delay": 1,
-      "price": 1,
-      "category": "Économie"
+      "category": "Economie"
     },
     {
       "name": "eco-clear",
       "description": "Réinitialiser l'économie d'un utilisateur",
       "delay": 1,
       "price": 1,
-      "category": "Économie"
+      "category": "Economie"
+    },
+    {
+      "name": "eco-give",
+      "description": "Donner de l'argent à un utilisateur",
+      "delay": 1,
+      "price": 1,
+      "category": "Economie"
+    },
+    {
+      "name": "eco-remove",
+      "description": "Retirer de l'argent à un utilisateur",
+      "delay": 1,
+      "price": 1,
+      "category": "Economie"
     },
     {
       "name": "eco-top",
       "description": "Afficher le classement des utilisateurs les plus riches",
       "delay": 1,
       "price": 1,
-      "category": "Économie"
+      "category": "Economie"
+    },
+    {
+      "name": "money",
+      "description": "Affiche votre solde ou celui d'un autre utilisateur",
+      "delay": 1,
+      "price": 1,
+      "category": "Economie"
+    },
+    {
+      "name": "transfer",
+      "description": "Transférer de l'argent à un autre utilisateur",
+      "delay": 1,
+      "price": 1,
+      "category": "Economie"
+    },
+    {
+      "name": "withdraw",
+      "description": "Retirer de l'argent de votre banque",
+      "delay": 1,
+      "price": 1,
+      "category": "Economie"
+    },
+    {
+      "name": "8ball",
+      "description": "Posez une question et obtenez une réponse aléatoire",
+      "delay": 1,
+      "price": 1,
+      "category": "Fun"
+    },
+    {
+      "name": "blackjack",
+      "description": "Jouez au Blackjack contre le croupier",
+      "delay": 1,
+      "price": 1,
+      "category": "Fun"
+    },
+    {
+      "name": "boop",
+      "description": "Touche le nez de quelqu'un",
+      "delay": 1,
+      "price": 1,
+      "category": "Fun"
+    },
+    {
+      "name": "cat",
+      "description": "Envoie une image aléatoire de chat",
+      "delay": 1,
+      "price": 1,
+      "category": "Fun"
+    },
+    {
+      "name": "cry",
+      "description": "Exprime sa tristesse",
+      "delay": 1,
+      "price": 1,
+      "category": "Fun"
+    },
+    {
+      "name": "dog",
+      "description": "Envoie une image aléatoire de chien",
+      "delay": 1,
+      "price": 1,
+      "category": "Fun"
+    },
+    {
+      "name": "fakeban",
+      "description": "Blague : fait semblant de bannir quelqu’un",
+      "delay": 1,
+      "price": 1,
+      "category": "Fun"
+    },
+    {
+      "name": "gif",
+      "description": "Cherche un GIF selon un mot-clé",
+      "delay": 1,
+      "price": 1,
+      "category": "Fun"
+    },
+    {
+      "name": "hangman",
+      "description": "Jouez au jeu du pendu !",
+      "delay": 1,
+      "price": 1,
+      "category": "Fun"
+    },
+    {
+      "name": "hug",
+      "description": "Faites un câlin à un membre",
+      "delay": 1,
+      "price": 1,
+      "category": "Fun"
+    },
+    {
+      "name": "kiss",
+      "description": "Faites un bisou à un membre",
+      "delay": 1,
+      "price": 1,
+      "category": "Fun"
+    },
+    {
+      "name": "punch",
+      "description": "Donne un coup de poing à quelqu'un",
+      "delay": 1,
+      "price": 1,
+      "category": "Fun"
+    },
+    {
+      "name": "quizz",
+      "description": "Répondez à une question de quiz !",
+      "delay": 1,
+      "price": 1,
+      "category": "Fun"
+    },
+    {
+      "name": "quote",
+      "description": "Récupère une citation aléatoire",
+      "delay": 1,
+      "price": 1,
+      "category": "Fun"
+    },
+    {
+      "name": "roulette",
+      "description": "Jouez à la roulette et tentez votre chance !",
+      "delay": 1,
+      "price": 1,
+      "category": "Fun"
+    },
+    {
+      "name": "slap",
+      "description": "Donnez une claque à un membre",
+      "delay": 1,
+      "price": 1,
+      "category": "Fun"
+    },
+    {
+      "name": "slot",
+      "description": "Jouez à la machine à sous et tentez votre chance !",
+      "delay": 1,
+      "price": 1,
+      "category": "Fun"
+    },
+    {
+      "name": "spam",
+      "description": "Spamme un message",
+      "delay": 1,
+      "price": 1,
+      "category": "Fun"
+    },
+    {
+      "name": "tictactoe",
+      "description": "Jouez au Tic Tac Toe avec un autre joueur",
+      "delay": 1,
+      "price": 1,
+      "category": "Fun"
+    },
+    {
+      "name": "coinflip",
+      "description": "Lance une pièce (pile ou face)",
+      "delay": 1,
+      "price": 1,
+      "category": "Game"
+    },
+    {
+      "name": "dice",
+      "description": "Lance un ou plusieurs dés",
+      "delay": 1,
+      "price": 1,
+      "category": "Game"
+    },
+    {
+      "name": "guess-number",
+      "description": "Devinez le chiffre auquel je pense !",
+      "delay": 1,
+      "price": 1,
+      "category": "Game"
+    },
+    {
+      "name": "rps",
+      "description": "Jouer à Pierre-Feuille-Ciseaux",
+      "delay": 1,
+      "price": 1,
+      "category": "Game"
+    },
+    {
+      "name": "trivia",
+      "description": "Pose une question aléatoire de culture générale",
+      "delay": 1,
+      "price": 1,
+      "category": "Game"
+    },
+    {
+      "name": "level-clear",
+      "description": "Réinitialise tous les niveaux sur le serveur",
+      "delay": 1,
+      "price": 1,
+      "category": "Levels"
+    },
+    {
+      "name": "level-freeze-off",
+      "description": "Désactive le gel des niveaux pour un utilisateur",
+      "delay": 1,
+      "price": 1,
+      "category": "Levels"
+    },
+    {
+      "name": "level-freeze",
+      "description": "Geler les gains d'XP d'un utilisateur",
+      "delay": 1,
+      "price": 1,
+      "category": "Levels"
+    },
+    {
+      "name": "level-give",
+      "description": "Donner de l'XP à un utilisateur",
+      "delay": 1,
+      "price": 1,
+      "category": "Levels"
+    },
+    {
+      "name": "level-remove",
+      "description": "Retirer de l'XP à un utilisateur",
+      "delay": 1,
+      "price": 1,
+      "category": "Levels"
+    },
+    {
+      "name": "level-top-server",
+      "description": "Afficher les 10 meilleurs utilisateurs du serveur par XP",
+      "delay": 1,
+      "price": 1,
+      "category": "Levels"
+    },
+    {
+      "name": "level-top",
+      "description": "Afficher le classement des 10 meilleurs utilisateurs par XP",
+      "delay": 1,
+      "price": 1,
+      "category": "Levels"
+    },
+    {
+      "name": "level-vanish-off",
+      "description": "Désactiver le mode vanish pour un utilisateur (afficher dans les classements)",
+      "delay": 1,
+      "price": 1,
+      "category": "Levels"
+    },
+    {
+      "name": "level-vanish",
+      "description": "Activer le mode vanish pour un utilisateur (le cacher des classements)",
+      "delay": 1,
+      "price": 1,
+      "category": "Levels"
+    },
+    {
+      "name": "level",
+      "description": "Affiche votre niveau actuel et votre XP",
+      "delay": 1,
+      "price": 1,
+      "category": "Levels"
+    },
+    {
+      "name": "autorole",
+      "description": "Attribuer un rôle automatiquement à l’arrivée d’un membre",
+      "delay": 1,
+      "price": 1,
+      "category": "Moderation"
+    },
+    {
+      "name": "ban",
+      "description": "Bannir un utilisateur du serveur",
+      "delay": 1,
+      "price": 1,
+      "category": "Moderation"
+    },
+    {
+      "name": "clear",
+      "description": "Supprimer des messages dans le salon",
+      "delay": 1,
+      "price": 1,
+      "category": "Moderation"
+    },
+    {
+      "name": "infractions",
+      "description": "Voir les avertissements d'un utilisateur",
+      "delay": 1,
+      "price": 1,
+      "category": "Moderation"
+    },
+    {
+      "name": "kick",
+      "description": "Expulser un utilisateur du serveur",
+      "delay": 1,
+      "price": 1,
+      "category": "Moderation"
+    },
+    {
+      "name": "lock",
+      "description": "Fermer un salon pour tout le monde",
+      "delay": 1,
+      "price": 1,
+      "category": "Moderation"
+    },
+    {
+      "name": "mute",
+      "description": "Rend muet un membre du serveur",
+      "delay": 1,
+      "price": 1,
+      "category": "Moderation"
+    },
+    {
+      "name": "nicklog",
+      "description": "Voir l'historique des noms d'un membre",
+      "delay": 1,
+      "price": 1,
+      "category": "Moderation"
+    },
+    {
+      "name": "setup-suggestions",
+      "description": "Configure le salon pour les suggestions",
+      "delay": 1,
+      "price": 1,
+      "category": "Moderation"
+    },
+    {
+      "name": "slowmode",
+      "description": "Changer le mode lent d’un salon",
+      "delay": 1,
+      "price": 1,
+      "category": "Moderation"
+    },
+    {
+      "name": "unban",
+      "description": "Débannir un utilisateur du serveur",
+      "delay": 1,
+      "price": 1,
+      "category": "Moderation"
+    },
+    {
+      "name": "unlock",
+      "description": "Rouvrir un salon pour tout le monde",
+      "delay": 1,
+      "price": 1,
+      "category": "Moderation"
+    },
+    {
+      "name": "unmute",
+      "description": "Retire le mute d'un membre du serveur",
+      "delay": 1,
+      "price": 1,
+      "category": "Moderation"
+    },
+    {
+      "name": "warn",
+      "description": "Avertir un utilisateur",
+      "delay": 1,
+      "price": 1,
+      "category": "Moderation"
+    },
+    {
+      "name": "addPerso",
+      "description": "Ajouter un personnage que l'on incarne",
+      "delay": 1,
+      "price": 1,
+      "category": "Roleplay"
+    },
+    {
+      "name": "perso",
+      "description": "Visualiser les personnages que vous incarnez",
+      "delay": 1,
+      "price": 1,
+      "category": "Roleplay"
+    },
+    {
+      "name": "persoSay",
+      "description": "Parler au nom de votre personnage",
+      "delay": 1,
+      "price": 1,
+      "category": "Roleplay"
+    },
+    {
+      "name": "suppPerso",
+      "description": "Supprimer un personnage que l'on incarne",
+      "delay": 1,
+      "price": 1,
+      "category": "Roleplay"
+    },
+    {
+      "name": "activity",
+      "description": "Voir l'activité d'un membre",
+      "delay": 1,
+      "price": 1,
+      "category": "Utilitaire"
     },
     {
       "name": "avatar",
-      "description": "Afficher l'avatar d'un utilisateur en grand format",
+      "description": "Affiche l'avatar d'un utilisateur en grand format",
+      "delay": 1,
+      "price": 1,
+      "category": "Utilitaire"
+    },
+    {
+      "name": "bye-config",
+      "description": "Configure le système d'au revoir",
       "delay": 1,
       "price": 1,
       "category": "Utilitaire"
     },
     {
       "name": "emote-info",
-      "description": "Afficher les informations d'un émoticône",
+      "description": "Affiche les informations d'un émoji",
       "delay": 1,
       "price": 1,
       "category": "Utilitaire"
     },
     {
       "name": "help",
-      "description": "Afficher la liste des commandes disponibles ou les détails d'une commande spécifique",
+      "description": "Affiche la liste des commandes disponibles ou les détails d'une commande spécifique",
+      "delay": 1,
+      "price": 1,
+      "category": "Utilitaire"
+    },
+    {
+      "name": "invite",
+      "description": "Obtenez le lien d’invitation du bot",
       "delay": 1,
       "price": 1,
       "category": "Utilitaire"
@@ -249,49 +480,70 @@
     },
     {
       "name": "ping",
-      "description": "Afficher le ping du bot",
+      "description": "Affiche la latence du bot",
       "delay": 1,
       "price": 1,
       "category": "Utilitaire"
     },
     {
       "name": "poll",
-      "description": "Créer un sondage avec jusqu'à 10 options",
+      "description": "Créer un sondage",
       "delay": 1,
       "price": 1,
       "category": "Utilitaire"
     },
     {
       "name": "remind",
-      "description": "Créer un rappel",
+      "description": "Crée un rappel",
       "delay": 1,
       "price": 1,
       "category": "Utilitaire"
     },
     {
-      "name": "serverinfo",
-      "description": "Afficher des informations détaillées sur le serveur",
+      "name": "role-info",
+      "description": "Affiche les informations d'un rôle",
+      "delay": 1,
+      "price": 1,
+      "category": "Utilitaire"
+    },
+    {
+      "name": "say",
+      "description": "Faire parler le bot dans un salon",
       "delay": 1,
       "price": 1,
       "category": "Utilitaire"
     },
     {
       "name": "server-stats",
-      "description": "Afficher les statistiques du serveur",
+      "description": "Affiche les statistiques du serveur",
+      "delay": 1,
+      "price": 1,
+      "category": "Utilitaire"
+    },
+    {
+      "name": "serverinfo",
+      "description": "Affiche les informations du serveur",
+      "delay": 1,
+      "price": 1,
+      "category": "Utilitaire"
+    },
+    {
+      "name": "suggest",
+      "description": "Proposez une idée au staff",
+      "delay": 1,
+      "price": 1,
+      "category": "Utilitaire"
+    },
+    {
+      "name": "uptime",
+      "description": "Montre depuis combien de temps le bot est allumé",
       "delay": 1,
       "price": 1,
       "category": "Utilitaire"
     },
     {
       "name": "userinfo",
-      "description": "Afficher des informations détaillées sur un utilisateur",
-      "delay": 1,
-      "price": 1,
-      "category": "Utilitaire"
-    },
-    {
-      "name": "activity",
-      "description": "Voir l'activité d'un membre",
+      "description": "Affiche les informations d'un utilisateur",
       "delay": 1,
       "price": 1,
       "category": "Utilitaire"
@@ -304,137 +556,88 @@
       "category": "Utilitaire"
     },
     {
-      "name": "suggest",
-      "description": "Proposer une idée au staff (va dans un salon dédié)",
-      "delay": 1,
-      "price": 1,
-      "category": "Utilitaire"
-    },
-    {
-      "name": "roleinfo",
-      "description": "Détails d'un rôle (membres, permissions)",
-      "delay": 1,
-      "price": 1,
-      "category": "Utilitaire"
-    },
-    {
-      "name": "invite",
-      "description": "Lien d'invitation du bot",
-      "delay": 1,
-      "price": 1,
-      "category": "Utilitaire"
-    },
-    {
       "name": "vote",
-      "description": "Créer un petit vote rapide (différent de /poll)",
+      "description": "Créez un vote rapide",
       "delay": 1,
       "price": 1,
       "category": "Utilitaire"
     },
     {
-      "name": "say",
-      "description": "Faire parler le bot dans un autre salon",
+      "name": "welcome-config",
+      "description": "Configure le système de bienvenue",
       "delay": 1,
       "price": 1,
       "category": "Utilitaire"
     },
     {
-      "name": "coinflip",
-      "description": "Lancer une pioche ou une face",
+      "name": "join",
+      "description": "Fait rejoindre le bot dans votre salon vocal",
       "delay": 1,
       "price": 1,
-      "category": "Divertissement"
+      "category": "Voice"
     },
     {
-      "name": "dice",
-      "description": "Lancer un ou plusieurs dés",
+      "name": "leave",
+      "description": "Fait quitter le canal vocal au bot.",
       "delay": 1,
       "price": 1,
-      "category": "Divertissement"
+      "category": "Voice"
     },
     {
-      "name": "rps",
-      "description": "Jouer au jeu de pierre-papier-ciseaux",
+      "name": "np",
+      "description": "Afficher la musique en cours",
       "delay": 1,
       "price": 1,
-      "category": "Divertissement"
+      "category": "Voice"
     },
     {
-      "name": "trivia",
-      "description": "Poser une question aléatoire de culture générale",
+      "name": "pause",
+      "description": "Met en pause la musique en cours",
       "delay": 1,
       "price": 1,
-      "category": "Divertissement"
+      "category": "Voice"
     },
     {
-      "name": "guess-number",
-      "description": "Le bot pense à un chiffre et l'utilisateur doit deviner",
+      "name": "play",
+      "description": "Joue de la musique depuis YouTube, Spotify ou SoundCloud",
       "delay": 1,
       "price": 1,
-      "category": "Divertissement"
+      "category": "Voice"
     },
     {
-      "name": "8ball",
-      "description": "Posez une question et obtenez une réponse aléatoire",
+      "name": "queue",
+      "description": "Affiche la file d'attente des chansons.",
       "delay": 1,
       "price": 1,
-      "category": "Divertissement"
+      "category": "Voice"
     },
     {
-      "name": "hug",
-      "description": "Faites un câlin à un membre",
+      "name": "resume",
+      "description": "Reprend la lecture de la musique",
       "delay": 1,
       "price": 1,
-      "category": "Divertissement"
+      "category": "Voice"
     },
     {
-      "name": "kiss",
-      "description": "Faites un bisou à un membre",
+      "name": "skip",
+      "description": "Passe à la chanson suivante dans la file d'attente.",
       "delay": 1,
       "price": 1,
-      "category": "Divertissement"
+      "category": "Voice"
     },
     {
-      "name": "slap",
-      "description": "Donnez une claque à un membre",
+      "name": "stop",
+      "description": "Arrête la lecture et vide la file d'attente",
       "delay": 1,
       "price": 1,
-      "category": "Divertissement"
+      "category": "Voice"
     },
     {
-      "name": "dog",
-      "description": "Envoie une image aléatoire de chien",
+      "name": "volume",
+      "description": "Régler le volume de la musique",
       "delay": 1,
       "price": 1,
-      "category": "Divertissement"
-    },
-    {
-      "name": "cat",
-      "description": "Envoie une image aléatoire de chat",
-      "delay": 1,
-      "price": 1,
-      "category": "Divertissement"
-    },
-    {
-      "name": "fakeban",
-      "description": "Fait semblant de bannir quelqu'un",
-      "delay": 1,
-      "price": 1,
-      "category": "Divertissement"
-    },
-    {
-      "name": "gif",
-      "description": "Cherche un GIF selon un mot-clé",
-      "delay": 1,
-      "price": 1,
-      "category": "Divertissement"
-    },
-    {
-      "name": "quote",
-      "description": "Récupère une citation aléatoire",
-      "delay": 1,
-      "price": 1,
-      "category": "Divertissement"
+      "category": "Voice"
     }
   ]
 }

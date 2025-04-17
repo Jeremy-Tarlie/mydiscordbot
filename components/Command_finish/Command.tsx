@@ -70,11 +70,11 @@ const Command: React.FC<CommandProps> = ({ setBot }) => {
 
     const baseCommands = 20;
     const surchargePer3 = 1;
-    const customCommandCost = 2;
+    const customCommandCost = 1;
 
     const additionalCommands =
       totalCommands > baseCommands
-        ? Math.ceil((totalCommands - baseCommands) / 3)
+        ? Math.ceil((totalCommands - baseCommands) / 5)
         : 0;
 
     return (
@@ -85,7 +85,7 @@ const Command: React.FC<CommandProps> = ({ setBot }) => {
   useEffect(() => {
     setBot((prevBot) => ({
       ...prevBot,
-      price: additionalCost + 5,
+      price: additionalCost + 2,
       command: selectedCommands,
     }));
   }, [additionalCost, selectedCommands, setBot]);
@@ -181,7 +181,7 @@ const Command: React.FC<CommandProps> = ({ setBot }) => {
         ))}
 
         <li className={style.other_command}>
-          <div>
+          <div className={style.commande_div}>
             <input id="commandName" type="text" placeholder="Command name" />
             <strong>:</strong>
             <textarea

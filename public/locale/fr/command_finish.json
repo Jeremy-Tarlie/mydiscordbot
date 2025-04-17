@@ -4,8 +4,8 @@
   "search_label": "Rechercher :",
   "techno": "Technologie utilisée : JavaScript",
   "info": {
-    "partie1": " Vous pouvez sélectionner jusqu'à 20 commandes sans frais supplémentaires. Au-delà de 20, un supplément de 1 € sera appliqué pour chaque tranche de 3 commandes supplémentaires.",
-    "partie2": "Les commandes personnalisées sont soumises à un surcoût de 2 € chacune. Veuillez noter qu’un délai supplémentaire peut être requis pour le traitement des commandes personnalisées.",
+    "partie1": " Vous pouvez sélectionner jusqu'à 20 commandes sans frais supplémentaires. Au-delà de 20, un supplément de 1 € sera appliqué pour chaque tranche de 5 commandes supplémentaires.",
+    "partie2": "Les commandes personnalisées sont soumises à un surcoût de 1 € chacune. Veuillez noter qu’un délai supplémentaire peut être requis pour le traitement des commandes personnalisées.",
     "partie3": "Le paiement s’effectue via PayPal. Un e-mail contenant le lien de paiement vous sera envoyé."
   },
   "delay": "Délai de la livraison du bot est estimé à 3 jours ouvrables.",
@@ -28,7 +28,7 @@
   "no_hosted": "Non Hébergé",
   "prefixe": "Préfixe",
   "price": "Prix",
-  "price_mounth": "+ 10€/mois",
+  "price_mounth": "+ 5€/mois",
   "technical_info": "Informations techniques",
   "contact_info": "Informations de contact",
   "terms_agreement": "J'accepte les conditions d'utilisation",

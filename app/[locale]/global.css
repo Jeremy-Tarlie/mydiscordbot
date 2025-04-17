@@ -82,6 +82,8 @@ button, .button {
 
 button:hover, .button:hover {
   background-color: var(--primary-hover);
+  padding: 15px 10px;
+  transform: translateY(-3px);
 }
 
 h1, h2, h3, h4, h5, h6 {

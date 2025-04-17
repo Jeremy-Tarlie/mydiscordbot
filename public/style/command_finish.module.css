@@ -232,6 +232,13 @@
   margin-top: 8px;
 }
 
+.commande_div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
 .other_command {
   background-color: var(--background-lighter);
   border-radius: 12px;
@@ -266,6 +273,7 @@
   border-radius: 8px;
   color: white;
   font-size: 1rem;
+  width: 100%;
 }
 
 .other_command textarea {
@@ -277,6 +285,8 @@
   color: white;
   font-size: 1rem;
   resize: vertical;
+  width: 100%;
+  margin-bottom: 15px;
 }
 
 .add_button {
@@ -417,9 +427,7 @@
 }
 
 @media screen and (max-width: 576px) {
-  .other_command {
-    padding: 20px;
-  }
+
 
   .custom_command_form {
     gap: 15px;
@@ -432,6 +440,19 @@
 }
 
 @media screen and (max-width: 992px) {
+  .other_command {
+    padding: 20px;
+  }
+
+  #commandName{
+    width: 50%;
+  }
+
+  .commande_div {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
   .container_commande {
     flex-direction: column;
     align-items: center;

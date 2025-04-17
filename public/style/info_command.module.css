@@ -57,6 +57,7 @@
 .info_label {
   color: var(--text-muted);
   font-size: 1rem;
+  margin-right: 20px;
 }
 
 .info_value {
@@ -262,6 +263,31 @@
   outline: none;
   border-color: var(--primary-color);
   box-shadow: 0 0 0 2px rgba(88, 101, 242, 0.3);
+}
+
+.turnstileContainer {
+  width: 100%; /* S'adapte à la largeur du conteneur parent */
+  max-width: 400px; /* Limite la largeur maximale */
+  margin: 0 auto; /* Centre horizontalement */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.turnstile{
+  width: 100%; /* S'adapte à la largeur du conteneur parent */
+  max-width: 400px; /* Limite la largeur maximale */
+  margin: 0 auto; /* Centre horizontalement */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (max-width: 600px) {
+  .turnstileContainer {
+    max-width: 100%; /* Utilise toute la largeur sur les petits écrans */
+    padding: 0 1rem; /* Ajoute un peu de padding */
+  }
 }
 
 .terms_container {

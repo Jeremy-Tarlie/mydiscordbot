@@ -36,7 +36,7 @@ const Info_command = ({
 
     const formData = new FormData(e.currentTarget);
     const username = formData.get("username");
-  
+
     // Vérifiez si le champ username est rempli
     if (username) {
       return; // Arrête l'exécution si le champ username est rempli
@@ -191,11 +191,7 @@ const Info_command = ({
 
         <div className={style.contact}>
           <div className={style.username_group}>
-            <input
-              type="text"
-              id="username"
-              name="username"
-            />
+            <input type="text" id="username" name="username" />
           </div>
           <div className={style.form_group}>
             <label htmlFor="discord">
@@ -276,12 +272,14 @@ const Info_command = ({
           </div>
         </div>
 
-        <Turnstile
-          siteKey={"0x4AAAAAAA_zcyFCD4RvhZdK"} // Clé publique Turnstile
-          onSuccess={(token) => setTurnstileToken(token)} // Stocke le token
-          onError={() => toast.error("Erreur CAPTCHA.")}
-        />
-
+        <div className={style.turnstileContainer}>
+          <Turnstile
+            className={style.turnstile}
+            siteKey={"0x4AAAAAAA_zcyFCD4RvhZdK"} // Clé publique Turnstile
+            onSuccess={(token) => setTurnstileToken(token)} // Stocke le token
+            onError={() => toast.error("Erreur CAPTCHA.")}
+          />
+        </div>
         <div className={style.terms_container}>
           <input type="checkbox" id="terms" required />
           <label htmlFor="terms">{t("terms_agreement")}</label>

@@ -33,7 +33,7 @@ const Command_finish = () => {
       email: "",
     },
     command: [],
-    price: 5,
+    price: 2,
   }));
 
   useEffect(() => {

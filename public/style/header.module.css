@@ -131,6 +131,7 @@
   height: 2px;
   background-color: var(--text-color);
   transition: var(--transition);
+  left: 0;
 }
 
 .hamburger::before {
@@ -160,7 +161,7 @@
 
   .navigation {
     position: fixed;
-    top: var(--header-height);
+    /* top: var(--header-height); */
     left: 0;
     right: 0;
     background-color: var(--background-dark);
@@ -178,6 +179,9 @@
   .navigation.active {
     transform: translateY(0);
     opacity: 1;
+    top: 50px;
+    position: absolute;
+    width: 100%;
   }
 
   .navList {
