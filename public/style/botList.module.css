@@ -6,7 +6,6 @@
 
 /* Introduction section */
 .intro_section {
-  margin-bottom: 3rem;
   text-align: center;
   max-width: 800px;
   margin-left: auto;
@@ -52,6 +51,7 @@
   flex-direction: column;
   box-shadow: 0 4px 6px -1px #0000001a, 0 2px 4px -1px #0000000f;
   transition: all 0.3s ease;  
+  align-items: center;
 }
 
 .call_to_action:hover {
@@ -66,7 +66,8 @@
 }
 
 .call_to_action_description {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.5rem auto;
+  text-align: center;
   color: var(--text-muted);
 }
 

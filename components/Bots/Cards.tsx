@@ -1,20 +1,21 @@
+"use client";
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import style from "@/public/style/botCard.module.css";
 
 interface CardProps {
+  id: string;
   title: string;
   description: string;
   image: string;
-  id: string;
 }
 
 export const Card: React.FC<CardProps> = ({
+  id,
   title,
   description,
   image,
-  id,
 }) => {
   return (
     <div className={style.card}>
@@ -33,8 +34,10 @@ export const Card: React.FC<CardProps> = ({
             <h2 className={style.card_title}>{title}</h2>
           </div>
         </div>
-        <p className={style.card_description}>{description.length > 100 ? description.slice(0, 100) + "..." : description}</p>
-        <Link href={`/bots/${id}`} className={style.card_link}>
+        <p className={style.card_description}>
+          {description.length > 100 ? description.slice(0, 100) + "..." : description}
+        </p>
+        <Link href={`/fr/bots/${id}`} className={style.card_link}>
           Voir plus
         </Link>
       </div>
