@@ -86,7 +86,7 @@ export async function POST(req: NextRequest) {
           Boolean
         ) as string[],
         subject: "Commande d'un bot",
-        attachments: !!imgBot
+        attachments: imgBot
           ? [
               {
                 filename: "image.png",

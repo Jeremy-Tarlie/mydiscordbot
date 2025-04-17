@@ -1,53 +1,86 @@
-import React from 'react'
+"use client"
+import React, { useEffect, useState } from 'react'
 import BotList from '@/components/Bots/BotList'
-// import { useTranslations } from 'next-intl';
+import { useSearchParams } from 'next/navigation';
 
-const Page = async ({
-  searchParams,
-}: {
-  searchParams: { [key: string]: string | string[] | undefined }
-}) => {
-  const page = typeof searchParams.page === 'string' ? parseInt(searchParams.page) : 1;
-  const limit = 6; // Nombre de bots par page
-
-  try {
-    const res = await fetch(`http://localhost:3000/api/bots?page=${page}&limit=${limit}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      next: { revalidate: 3600 } // Revalidate every hour
-    });
-
-    if (!res.ok) {
-      throw new Error("Failed to fetch data");
-    }
-
-    const data = await res.json();
-
-    console.log(data)
-
-    return (
-      <div>
-        <BotList 
-          data={{
-            bots: data.bots,
-            currentPage: data.currentPage,
-            totalPages: data.totalPages,
-            total: data.total,
-            botsPerPage: data.botsPerPage
-          }} 
-        />
-      </div>
-    );
-  } catch (error) {
-    console.error("Error fetching bots:", error);
-    return (
-      <div>
-        <p>Une erreur est survenue lors du chargement des bots. Veuillez réessayer plus tard.</p>
-      </div>
-    );
-  }
+interface BotData {
+  bots: Array<{
+    id: string;
+    name: string;
+    description: string;
+    image: string;
+    commands: Array<{
+      name: string;
+      description: string;
+    }>;
+  }>;
+  currentPage: number;
+  totalPages: number;
+  total: number;
+  botsPerPage: number;
 }
 
-export default Page;
+export default function Page() {
+  const searchParams = useSearchParams();
+  const [data, setData] = useState<BotData | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const page = parseInt(searchParams.get("page") || "1");
+  const limit = 6;
+
+  useEffect(() => {
+    const fetchBots = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        
+        const res = await fetch(`/api/bots?page=${page}&limit=${limit}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          }
+        });
+
+        if (!res.ok) {
+          throw new Error("Failed to fetch data");
+        }
+
+        const botData = await res.json();
+        setData(botData);
+      } catch (err) {
+        console.error("Error fetching bots:", err);
+        setError("Une erreur est survenue lors du chargement des bots");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchBots();
+  }, [page, limit]); // Recharger les données quand la page ou la limite change
+
+  if (loading) {
+    return <div>Chargement en cours...</div>;
+  }
+
+  if (error) {
+    return <div>{error}</div>;
+  }
+
+  if (!data) {
+    return <div>Aucune donnée disponible</div>;
+  }
+
+  return (
+    <div>
+      <BotList 
+        data={{
+          bots: data.bots,
+          currentPage: page,
+          totalPages: data.totalPages,
+          total: data.total,
+          botsPerPage: limit
+        }} 
+      />
+    </div>
+  );
+}

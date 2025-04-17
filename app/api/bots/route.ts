@@ -1,5 +1,9 @@
 import { NextResponse } from 'next/server';
-import { Client, GatewayIntentBits } from 'discord.js';
+
+interface DiscordCommand {
+    name: string;
+    description: string;
+}
 
 // Configuration des bots
 const bots = [
@@ -9,6 +13,48 @@ const bots = [
     },
     // Ajoutez d'autres bots selon vos besoins
 ];
+
+async function fetchBotInfo(botToken: string) {
+    try {
+        // Récupérer les informations du bot via l'API Discord
+        const response = await fetch('https://discord.com/api/v10/users/@me', {
+            headers: {
+                'Authorization': `Bot ${botToken}`,
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch bot info');
+        }
+
+        const botData = await response.json();
+
+        // Récupérer les commandes du bot
+        const applicationResponse = await fetch(`https://discord.com/api/v10/applications/${botData.id}/commands`, {
+            headers: {
+                'Authorization': `Bot ${botToken}`,
+                'Content-Type': 'application/json',
+            },
+        });
+
+        const commands = await applicationResponse.json();
+
+        return {
+            id: botData.id,
+            name: botData.username,
+            description: botData.bio || "Description non disponible",
+            image: `https://cdn.discordapp.com/avatars/${botData.id}/${botData.avatar}.png`,
+            commands: commands.map((cmd: DiscordCommand) => ({
+                name: cmd.name,
+                description: cmd.description
+            }))
+        };
+    } catch (error) {
+        console.error('Erreur lors de la récupération des informations du bot:', error);
+        return null;
+    }
+}
 
 // Gestionnaire de la route GET
 export async function GET(request: Request) {
@@ -21,34 +67,14 @@ export async function GET(request: Request) {
 
         const botsInfo = [];
 
+        // Récupérer les informations de tous les bots
         for (const botConfig of bots) {
-            const client = new Client({
-                intents: [
-                    GatewayIntentBits.Guilds,
-                    GatewayIntentBits.GuildMessages
-                ]
-            });
-
-            await client.login(botConfig.token);
-
-            // Récupérer les informations du bot
-            const botUser = client.user;
-            const application = await client.application?.fetch();
-            const commands = await application?.commands.fetch();
-
-            const botInfo = {
-                id: botUser?.id,
-                name: botUser?.username,
-                description: application?.description,
-                image: botUser?.displayAvatarURL(),
-                commands: commands?.map(cmd => ({
-                    name: cmd.name,
-                    description: cmd.description
-                }))
-            };
-
-            botsInfo.push(botInfo);
-            client.destroy(); // Déconnexion du bot après avoir récupéré les informations
+            if (botConfig.token) {
+                const botInfo = await fetchBotInfo(botConfig.token);
+                if (botInfo) {
+                    botsInfo.push(botInfo);
+                }
+            }
         }
 
         const allBots = [...botsInfo];
