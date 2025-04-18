@@ -43,22 +43,30 @@ const Header: React.FC<HeaderProps> = ({ locale }) => {
           onClick={toggleMenu}
           aria-label="Toggle menu"
         >
-          <span className={`${styles.hamburger} ${isMenuOpen ? styles.active : ''}`}></span>
+          <span
+            className={`${styles.hamburger} ${isMenuOpen ? styles.active : ""}`}
+          ></span>
         </button>
 
-        <nav className={`${styles.navigation} ${isMenuOpen ? styles.active : ''}`}>
-
+        <nav
+          className={`${styles.navigation} ${isMenuOpen ? styles.active : ""}`}
+        >
           <div className={styles.languageSelector}>
-            <label htmlFor="language-select">{t("language")}</label>
-            <select
-              id="language-select"
-              onChange={handleChange}
-              value={locale}
-              className={styles.languageSelect}
-            >
-              <option value="fr">Français</option>
-              <option value="en">English</option>
-            </select>
+            <Link href={`/${locale}/bots`} className={styles.languageSelectorLink}>
+              {t("bots")}
+            </Link>
+            <div className={styles.languageSelectorContainer}>
+              <label htmlFor="language-select" className={styles.languageSelectorLabel}>{t("language")}</label>
+              <select
+                id="language-select"
+                onChange={handleChange}
+                value={locale}
+                className={styles.languageSelect}
+              >
+                <option value="fr">Français</option>
+                <option value="en">English</option>
+              </select>
+            </div>
           </div>
         </nav>
       </div>

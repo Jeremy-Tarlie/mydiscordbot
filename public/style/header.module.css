@@ -80,6 +80,10 @@
   width: 100%;
 }
 
+.languageSelectorLabel {
+  margin-right: 1rem;
+}
+
 .languageSelector {
   display: flex;
   align-items: center;
@@ -152,6 +156,12 @@
 
 .hamburger.active::after {
   transform: rotate(-45deg);
+}
+
+.languageSelectorLink {
+  text-decoration: none;
+  color: var(--text-color);
+  margin-right: 2rem;
 }
 
 @media (max-width: 900px) {

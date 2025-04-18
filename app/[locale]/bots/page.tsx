@@ -1,5 +1,5 @@
 "use client"
-import React, { useEffect, useState } from 'react'
+import React, { Suspense, useEffect, useState, useTransition, cache } from 'react'
 import BotList from '@/components/Bots/BotList'
 import { useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
@@ -21,68 +21,84 @@ interface BotData {
   botsPerPage: number;
 }
 
-export default function Page() {
-  const searchParams = useSearchParams();
-  const [data, setData] = useState<BotData | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const page = parseInt(searchParams.get("page") || "1");
-  const limit = 6;
+// Cache de la fonction de fetch
+const fetchBotsData = cache(async (page: number, limit: number) => {
+  const res = await fetch(`/api/bots?page=${page}&limit=${limit}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    }
+  });
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch data");
+  }
+
+  return res.json();
+});
+
+// Composant de chargement
+function LoadingSpinner() {
   const t = useTranslations("bots");
+  return <div className="loading-spinner">{t("loading_spinner")}</div>;
+}
+
+// Composant d'erreur
+function ErrorMessage({ message }: { message: string | null }) {
+  const t = useTranslations("bots");
+  return <div className="error-message">{t("error_message")}</div>;
+}
+
+// Composant principal des bots
+function BotListWrapper({ page, limit }: { page: number, limit: number }) {
+  const [data, setData] = useState<BotData | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [isPending, startTransition] = useTransition();
 
   useEffect(() => {
-    const fetchBots = async () => {
+    startTransition(async () => {
       try {
-        setLoading(true);
-        setError(null);
-        
-        const res = await fetch(`/api/bots?page=${page}&limit=${limit}`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          }
-        });
-
-        if (!res.ok) {
-          throw new Error("Failed to fetch data");
-        }
-
-        const botData = await res.json();
+        const botData = await fetchBotsData(page, limit);
         setData(botData);
       } catch (err) {
         console.error("Error fetching bots:", err);
-        setError("Une erreur est survenue lors du chargement des bots");
-      } finally {
-        setLoading(false);
+        setError("Une erreur est survenue");
       }
-    };
-
-    fetchBots();
-  }, [page, limit]); // Recharger les données quand la page ou la limite change
-
-  if (loading) {
-    return <div>{t("loading_spinner")}</div>;
-  }
+    });
+  }, [page, limit]);
 
   if (error) {
-    return <div>{error}</div>;
+    return <ErrorMessage message={error} />;
   }
 
   if (!data) {
-    return <div>{t("error_message")}</div>;
+    return null;
   }
 
   return (
-    <div>
-      <BotList 
-        data={{
-          bots: data.bots,
-          currentPage: page,
-          totalPages: data.totalPages,
-          total: data.total,
-          botsPerPage: limit
-        }} 
-      />
+    <BotList 
+      data={{
+        bots: data.bots,
+        currentPage: page,
+        totalPages: data.totalPages,
+        total: data.total,
+        botsPerPage: limit
+      }} 
+    />
+  );
+}
+
+// Page principale
+export default function Page() {
+  const searchParams = useSearchParams();
+  const page = parseInt(searchParams.get("page") || "1");
+  const limit = 6;
+
+  return (
+    <div className="bots-container">
+      <Suspense fallback={<LoadingSpinner />}>
+        <BotListWrapper page={page} limit={limit} />
+      </Suspense>
     </div>
   );
 }

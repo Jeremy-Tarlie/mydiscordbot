@@ -10,5 +10,7 @@
   "usage_step_3_title": "Commencez à utiliser les commandes",
   "usage_step_3_description": "Utilisez la commande /help pour découvrir toutes les fonctionnalités de ce bot d'exemple (limité à 100 commandes par jour).",
   "commands_section_title": "Commandes disponibles :",
-  "usage_section_title": "Comment utiliser ce bot Discord"
+  "usage_section_title": "Comment utiliser ce bot Discord",
+  "show_more_commands": "Afficher plus de commandes",
+  "remaining": "restantes"
 }

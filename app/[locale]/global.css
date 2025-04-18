@@ -221,10 +221,6 @@ section {
   html {
     font-size: 15px;
   }
-  
-  .container {
-    padding: 0 2rem;
-  }
 }
 
 @media (max-width: 768px) {
