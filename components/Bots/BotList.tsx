@@ -3,6 +3,7 @@ import React from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Card } from "@/components/Bots/Cards";
 import style from "@/public/style/botList.module.css";
+import { useTranslations } from "next-intl";
 
 interface Bot {
   id: string;
@@ -24,6 +25,8 @@ interface BotListProps {
 const BotList = ({ data }: BotListProps) => {
   const router = useRouter();
   const searchParams = useSearchParams();
+
+  const t = useTranslations("bots");
 
   // Pagination handlers
   const goToPage = (pageNumber: number) => {
@@ -48,11 +51,11 @@ const BotList = ({ data }: BotListProps) => {
     <div className={style.main_content}>
       {/* Introduction section */}
       <section className={style.intro_section}>
-        <h2 className={style.intro_section_title}>Automatisez votre workflow</h2>
+        <h2 className={style.intro_section_title}>
+          {t("intro_section_title")}
+        </h2>
         <p className={style.intro_section_description}>
-          {`Nos bots sont conçus pour gérer les tâches répétitives, traiter l'information,
-          et vous aider à vous concentrer sur l'essentiel. Parcourez notre collection et
-          trouvez l'assistant automatisé parfait pour vos besoins.`}
+          {t("intro_section_description")}
         </p>
       </section>
 
@@ -78,7 +81,7 @@ const BotList = ({ data }: BotListProps) => {
             disabled={data.currentPage === 1}
             className={style.pagination_button}
           >
-            &laquo; Précédent
+            &laquo; {t("pagination_button_previous")}
           </button>
 
           <div className={style.pagination_numbers}>
@@ -145,18 +148,20 @@ const BotList = ({ data }: BotListProps) => {
             disabled={data.currentPage === data.totalPages}
             className={style.pagination_button}
           >
-            Suivant &raquo;
+            {t("pagination_button_next")} &raquo;
           </button>
         </div>
       </section>
 
       {/* Call to action */}
       <section className={style.call_to_action}>
-        <h2 className={style.call_to_action_title}>Créez votre propre bot</h2>
+        <h2 className={style.call_to_action_title}>{t("call_to_action_title")}</h2>
         <p className={style.call_to_action_description}>
-          Vous ne trouvez pas ce que vous cherchez ? Construisez un bot personnalisé adapté à vos besoins spécifiques.
+          {t("call_to_action_description")}
         </p>
-        <button className={style.call_to_action_button}>Commencer la création</button>
+        <button className={style.call_to_action_button}>
+        {t("call_to_action_button")}
+        </button>
       </section>
     </div>
   );

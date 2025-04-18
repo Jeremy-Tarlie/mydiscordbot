@@ -11,8 +11,8 @@ export default getRequestConfig(async ({ locale }) => {
     mention_legal: (await import(`./public/locale/${locale}/mention_legal.json`)).default,
     list_command: (await import(`./public/locale/${locale}/list_command.json`)).default,
     404: (await import(`./public/locale/${locale}/404.json`)).default,
-    // bots: (await import(`./public/locale/${locale}/bots.json`)).default,
-    // bot_detail: (await import(`./public/locale/${locale}/bot_detail.json`)).default,
+    bots: (await import(`./public/locale/${locale}/bots.json`)).default,
+    bot_detail: (await import(`./public/locale/${locale}/bot_detail.json`)).default,
   } as AbstractIntlMessages;
 
   return {

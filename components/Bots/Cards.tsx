@@ -3,6 +3,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import style from "@/public/style/botCard.module.css";
+import { useTranslations } from "next-intl";
 
 interface CardProps {
   id: string;
@@ -17,6 +18,7 @@ export const Card: React.FC<CardProps> = ({
   description,
   image,
 }) => {
+  const t = useTranslations("bots");
   return (
     <div className={style.card}>
       <div className={style.card_content}>
@@ -38,7 +40,7 @@ export const Card: React.FC<CardProps> = ({
           {description.length > 100 ? description.slice(0, 100) + "..." : description}
         </p>
         <Link href={`/fr/bots/${id}`} className={style.card_link}>
-          Voir plus
+          {t("card_link")}
         </Link>
       </div>
     </div>

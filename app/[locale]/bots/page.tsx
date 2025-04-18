@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import BotList from '@/components/Bots/BotList'
 import { useSearchParams } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 
 interface BotData {
   bots: Array<{
@@ -27,6 +28,7 @@ export default function Page() {
   const [error, setError] = useState<string | null>(null);
   const page = parseInt(searchParams.get("page") || "1");
   const limit = 6;
+  const t = useTranslations("bots");
 
   useEffect(() => {
     const fetchBots = async () => {
@@ -59,7 +61,7 @@ export default function Page() {
   }, [page, limit]); // Recharger les données quand la page ou la limite change
 
   if (loading) {
-    return <div>Chargement en cours...</div>;
+    return <div>{t("loading_spinner")}</div>;
   }
 
   if (error) {
@@ -67,7 +69,7 @@ export default function Page() {
   }
 
   if (!data) {
-    return <div>Aucune donnée disponible</div>;
+    return <div>{t("error_message")}</div>;
   }
 
   return (

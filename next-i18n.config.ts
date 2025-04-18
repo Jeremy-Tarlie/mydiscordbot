@@ -10,7 +10,9 @@ const i18nextConfig = {
     "mention_legal",
     "navigation",
     "footer",
-    "list_command"
+    "list_command",
+    "bots",
+    "bot_detail",
   ],
   localePath: "./public/locale" // Chemin vers les fichiers de traduction
 };

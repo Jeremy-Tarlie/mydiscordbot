@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import style from "@/public/style/botDetail.module.css";
+import { useTranslations } from "next-intl";
 
 interface BotData {
   id: string;
@@ -21,6 +22,7 @@ const BotDetailPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [botData, setBotData] = useState<BotData | null>(null);
+  const t = useTranslations("bot_detail");
 
   useEffect(() => {
     const fetchBotData = async () => {
@@ -83,7 +85,7 @@ const BotDetailPage = () => {
       <div className={style.main_content}>
         <div className={style.loading}>
           <div className={style.loading_spinner}></div>
-          <p>Chargement des informations du bot...</p>
+          <p>{t("loading_spinner")}</p>
         </div>
       </div>
     );
@@ -94,12 +96,12 @@ const BotDetailPage = () => {
       <div className={style.main_content}>
         <div className={style.error_container}>
           <h2 className={style.error_title}>Erreur</h2>
-          <p className={style.error_message}>{error || "Bot non trouvé"}</p>
+          <p className={style.error_message}>{error || t("error_message")}</p>
           <button
             className={style.back_button}
             onClick={() => window.history.back()}
           >
-            Retour à la liste des bots
+            {t("back_button")}
           </button>
         </div>
       </div>
@@ -122,7 +124,6 @@ const BotDetailPage = () => {
         <div className={style.bot_info}>
           <h1 className={style.bot_name}>{botData?.name}</h1>
 
-
           <div className={style.bot_tags}>
             {botData?.tags?.map((tag, index) => (
               <span key={index} className={style.tag}>
@@ -134,13 +135,13 @@ const BotDetailPage = () => {
           <p className={style.bot_description}>{botData?.description}</p>
 
           <button className={style.invite_button}>
-            Inviter sur votre serveur
+            {t("invite_button")}
           </button>
         </div>
       </div>
 
       <div className={style.bot_details_section}>
-        <h2 className={style.section_title}>Commandes</h2>
+        <h2 className={style.section_title}>{t("commands_section_title")}</h2>
         <div className={style.commands_list}>
           {botData?.commands?.map((command, index) => (
             <div key={index} className={style.command_item}>
@@ -154,23 +155,22 @@ const BotDetailPage = () => {
       </div>
 
       <div className={style.bot_details_section}>
-        <h2 className={style.section_title}>Comment utiliser ce bot</h2>
+        <h2 className={style.section_title}>{t("usage_section_title")}</h2>
         <div className={style.usage_steps}>
           <div className={style.step}>
             <div className={style.step_number}>1</div>
             <div className={style.step_content}>
-              <h3>Invitez le bot sur votre serveur</h3>
-              <p>{`Cliquez sur le bouton "Inviter sur votre serveur" et suivez les instructions.`}</p>
+              <h3>{t("usage_step_1_title")}</h3>
+              <p>{t("usage_step_1_description")}</p>
             </div>
           </div>
 
           <div className={style.step}>
             <div className={style.step_number}>2</div>
             <div className={style.step_content}>
-              <h3>Configurez les permissions</h3>
+              <h3>{t("usage_step_2_title")}</h3>
               <p>
-                Assurez-vous que le bot a les permissions nécessaires pour
-                fonctionner correctement.
+                {t("usage_step_2_description")}
               </p>
             </div>
           </div>
@@ -178,10 +178,9 @@ const BotDetailPage = () => {
           <div className={style.step}>
             <div className={style.step_number}>3</div>
             <div className={style.step_content}>
-              <h3>Commencez à utiliser les commandes</h3>
+              <h3>{t("usage_step_3_title")}</h3>
               <p>
-                Utilisez la commande /help pour voir toutes les fonctionnalités
-                disponibles.
+                {t("usage_step_3_description")}
               </p>
             </div>
           </div>
