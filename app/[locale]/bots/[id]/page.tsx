@@ -19,11 +19,11 @@ interface BotDetails {
     name: string;
     description: string;
   }>;
+  link: string;
   tags: string[];
   createdBy: string;
   servers: number;
   rating: number;
-  link?: string;
 }
 
 // Cache de la fonction de fetch
@@ -43,10 +43,6 @@ const fetchBotDetails = cache(async (botId: string) => {
   return res.json();
 });
 
-// Fonction pour générer le lien d'invitation
-function generateInviteLink(link: string): string {
-  return link;
-}
 
 // Composant de chargement
 function LoadingSpinner() {
@@ -133,7 +129,7 @@ function BotDetailsContent({ botId }: { botId: string }) {
 
   const handleInvite = () => {
     if (botDetails) {
-      window.open(generateInviteLink(botDetails.link || ""), "_blank");
+      window.open(botDetails?.link || "", "_blank");
     }
   };
 
