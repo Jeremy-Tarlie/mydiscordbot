@@ -1,5 +1,11 @@
 "use client";
-import React, { Suspense, useEffect, useState, useTransition, cache } from 'react';
+import React, {
+  Suspense,
+  useEffect,
+  useState,
+  useTransition,
+  cache,
+} from "react";
 import Image from "next/image";
 import style from "@/public/style/botDetail.module.css";
 import { useTranslations } from "next-intl";
@@ -17,6 +23,7 @@ interface BotDetails {
   createdBy: string;
   servers: number;
   rating: number;
+  link?: string;
 }
 
 // Cache de la fonction de fetch
@@ -26,7 +33,7 @@ const fetchBotDetails = cache(async (botId: string) => {
     body: JSON.stringify({ id: botId }),
     headers: {
       "Content-Type": "application/json",
-    }
+    },
   });
 
   if (!res.ok) {
@@ -36,37 +43,50 @@ const fetchBotDetails = cache(async (botId: string) => {
   return res.json();
 });
 
+// Fonction pour générer le lien d'invitation
+function generateInviteLink(link: string): string {
+  return link;
+}
+
 // Composant de chargement
 function LoadingSpinner() {
   const t = useTranslations("bot_detail");
-  return <div className={style.loading}>
-    <div className={style.loading_spinner}></div>
-    <p>{t("loading_spinner")}</p>
-  </div>;
+  return (
+    <div className={style.loading}>
+      <div className={style.loading_spinner}></div>
+      <p>{t("loading_spinner")}</p>
+    </div>
+  );
 }
 
 // Composant d'erreur
 function ErrorMessage() {
   const t = useTranslations("bot_detail");
-  return <div className={style.error_container}>
-    <h2 className={style.error_title}>Erreur</h2>
-    <p className={style.error_message}>{t("error_message")}</p>
-    <button
-      className={style.back_button}
-      onClick={() => window.history.back()}
-    >
-      {t("back_button")}
-    </button>
-  </div>;
+  return (
+    <div className={style.error_container}>
+      <h2 className={style.error_title}>Erreur</h2>
+      <p className={style.error_message}>{t("error_message")}</p>
+      <button
+        className={style.back_button}
+        onClick={() => window.history.back()}
+      >
+        {t("back_button")}
+      </button>
+    </div>
+  );
 }
 
 // Composant des commandes avec pagination
-function CommandsList({ commands }: { commands: Array<{ name: string; description: string }> }) {
+function CommandsList({
+  commands,
+}: {
+  commands: Array<{ name: string; description: string }>;
+}) {
   const [displayCount, setDisplayCount] = useState(10);
   const t = useTranslations("bot_detail");
 
   const showMore = () => {
-    setDisplayCount(prev => Math.min(prev + 10, commands.length));
+    setDisplayCount((prev) => Math.min(prev + 10, commands.length));
   };
 
   return (
@@ -74,20 +94,18 @@ function CommandsList({ commands }: { commands: Array<{ name: string; descriptio
       <div className={style.commands_list}>
         {commands.slice(0, displayCount).map((command, index) => (
           <div key={index} className={style.command_item}>
-            <div className={style.command_name}>{"/"+command.name}</div>
+            <div className={style.command_name}>{"/" + command.name}</div>
             <div className={style.command_description}>
               {command.description}
             </div>
           </div>
         ))}
       </div>
-      
+
       {displayCount < commands.length && (
-        <button 
-          onClick={showMore} 
-          className={style.show_more_button}
-        >
-          {t("show_more_commands")} ({commands.length - displayCount} {t("remaining")})
+        <button onClick={showMore} className={style.show_more_button}>
+          {t("show_more_commands")} ({commands.length - displayCount}{" "}
+          {t("remaining")})
         </button>
       )}
     </div>
@@ -112,6 +130,12 @@ function BotDetailsContent({ botId }: { botId: string }) {
       }
     });
   }, [botId]);
+
+  const handleInvite = () => {
+    if (botDetails) {
+      window.open(generateInviteLink(botDetails.link || ""), "_blank");
+    }
+  };
 
   if (error) {
     return <ErrorMessage />;
@@ -147,7 +171,7 @@ function BotDetailsContent({ botId }: { botId: string }) {
 
           <p className={style.bot_description}>{botDetails.description}</p>
 
-          <button className={style.invite_button}>
+          <button className={style.invite_button} onClick={handleInvite}>
             {t("invite_button")}
           </button>
         </div>

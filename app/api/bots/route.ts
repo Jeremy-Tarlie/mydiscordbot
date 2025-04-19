@@ -63,11 +63,15 @@ async function fetchBotInfo(botToken: string) {
     );
 
     const commands = await commandsResponse.json();
+    const link = appData.description.includes("https://discord.gg/")
+      ? ""
+      : `https://discord.com/oauth2/authorize?client_id=${userData.id}&permissions=8&scope=bot`;
 
     return {
       id: userData.id,
       name: userData.username,
       tags: appData.tags,
+      link: link,
       description: appData.description || "Description non disponible",
       image: `https://cdn.discordapp.com/avatars/${userData.id}/${userData.avatar}.png`,
       commands: commands.map((cmd: DiscordCommand) => ({

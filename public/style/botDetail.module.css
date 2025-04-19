@@ -289,32 +289,31 @@
   line-height: 1.6;
 }
 
-.botStats {
+.bot_stats {
   display: flex;
-  gap: 2rem;
+  gap: 1.5rem;
   margin-bottom: 1.5rem;
 }
 
-.statItem {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.stat_item {
+  background-color: var(--background-dark);
   padding: 1rem;
-  background: var(--background-lighter);
-  border-radius: var(--border-radius);
-  min-width: 120px;
+  border-radius: 0.5rem;
+  text-align: center;
+  min-width: 100px;
 }
 
-.statValue {
+.stat_value {
+  display: block;
   font-size: 1.5rem;
   font-weight: 700;
   color: var(--primary-color);
+  margin-bottom: 0.25rem;
 }
 
-.statLabel {
-  font-size: 0.9rem;
+.stat_label {
+  font-size: 0.875rem;
   color: var(--text-muted);
-  margin-top: 0.5rem;
 }
 
 .botFeatures {
@@ -460,12 +459,12 @@
     margin: 0 auto;
   }
 
-  .botStats {
+  .bot_stats {
     flex-wrap: wrap;
     justify-content: center;
   }
 
-  .statItem {
+  .stat_item {
     min-width: 100px;
   }
 
@@ -491,7 +490,7 @@
     font-size: 1rem;
   }
 
-  .statItem {
+  .stat_item {
     min-width: 80px;
     padding: 0.8rem;
   }
