@@ -9,7 +9,7 @@ import React, {
 import Image from "next/image";
 import style from "@/public/style/botDetail.module.css";
 import { useTranslations } from "next-intl";
-
+import { useParams } from "next/navigation";
 interface BotDetails {
   id: string;
   name: string;
@@ -211,11 +211,12 @@ function BotDetailsContent({ botId }: { botId: string }) {
 }
 
 // Page principale
-export default function BotPage({ params }: { params: { id: string } }) {
+export default function BotPage() {
+  const { id } = useParams();
   return (
     <div className="bot-page-container">
       <Suspense fallback={<LoadingSpinner />}>
-        <BotDetailsContent botId={params.id} />
+        <BotDetailsContent botId={id as string} />
       </Suspense>
     </div>
   );
