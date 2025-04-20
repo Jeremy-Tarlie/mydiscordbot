@@ -67,12 +67,16 @@ async function fetchBotInfo(botToken: string) {
       ? ""
       : `https://discord.com/oauth2/authorize?client_id=${userData.id}&permissions=8&scope=bot`;
 
+    const description = appData.description
+      .replace(/https:\/\/discord\.com\/oauth2\/authorize\S*$/, "")
+      .trim();
+
     return {
       id: userData.id,
       name: userData.username,
       tags: appData.tags,
       link: link,
-      description: appData.description || "Description non disponible",
+      description: description || "Description non disponible",
       image: `https://cdn.discordapp.com/avatars/${userData.id}/${userData.avatar}.png`,
       commands: commands.map((cmd: DiscordCommand) => ({
         name: cmd.name,

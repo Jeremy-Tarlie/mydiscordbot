@@ -21,7 +21,7 @@ export default function HomePage() {
             {t("home_description")}
           </p>
           <Link
-            href={`/${locale}/command`}
+            href={`/${locale}/bots`}
             className={styles.ctaButton}
             role="button"
             aria-label={t("home_description_button")}

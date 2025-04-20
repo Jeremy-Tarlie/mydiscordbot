@@ -4,6 +4,8 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { Card } from "@/components/Bots/Cards";
 import style from "@/public/style/botList.module.css";
 import { useTranslations } from "next-intl";
+import Link from "next/link";
+import { useParams } from "next/navigation";
 
 interface Bot {
   id: string;
@@ -25,6 +27,8 @@ interface BotListProps {
 const BotList = ({ data }: BotListProps) => {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const params = useParams();
+  const locale = params.locale as string;
 
   const t = useTranslations("bots");
 
@@ -155,13 +159,18 @@ const BotList = ({ data }: BotListProps) => {
 
       {/* Call to action */}
       <section className={style.call_to_action}>
-        <h2 className={style.call_to_action_title}>{t("call_to_action_title")}</h2>
+        <h2 className={style.call_to_action_title}>
+          {t("call_to_action_title")}
+        </h2>
         <p className={style.call_to_action_description}>
           {t("call_to_action_description")}
         </p>
-        <button className={style.call_to_action_button}>
-        {t("call_to_action_button")}
-        </button>
+        <Link
+          href={`/${locale}/command`}
+          className={style.call_to_action_button}
+        >
+          {t("call_to_action_button")}
+        </Link>
       </section>
     </div>
   );
