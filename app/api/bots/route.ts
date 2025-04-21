@@ -5,14 +5,24 @@ interface DiscordCommand {
   description: string;
 }
 
+// Fonction pour récupérer dynamiquement les bots depuis les variables d'environnement
+function getBotsFromEnv() {
+  const bots = [];
+  let index = 1;
+
+  while (process.env[`BOT${index}_TOKEN`] && process.env[`BOT${index}_CLIENT_ID`]) {
+    bots.push({
+      token: process.env[`BOT${index}_TOKEN`],
+      clientId: process.env[`BOT${index}_CLIENT_ID`],
+    });
+    index++;
+  }
+
+  return bots;
+}
+
 // Configuration des bots
-const bots = [
-  {
-    token: process.env.BOT1_TOKEN,
-    clientId: process.env.BOT1_CLIENT_ID,
-  },
-  // Ajoutez d'autres bots selon vos besoins
-];
+const bots = getBotsFromEnv();
 
 function getBotToken(id: string) {
   const bot = bots.find((bot) => bot.clientId === id);
