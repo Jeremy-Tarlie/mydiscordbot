@@ -1,6 +1,12 @@
 import { NextResponse, NextRequest } from "next/server";
 import nodemailer from "nodemailer";
 import { Buffer } from "buffer";
+import DOMPurify from 'dompurify';
+import { JSDOM } from 'jsdom';
+import { cookies } from "next/headers";
+
+const window = new JSDOM('').window;
+const purify = DOMPurify(window);
 
 const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST?.trim(), // Ajout de trim() pour enlever les espaces
@@ -25,8 +31,16 @@ export async function POST(req: NextRequest) {
 
   if (req.method === "POST") {
     try {
+      const cookieStore = await cookies();
+      const csrfTokenFromCookie = cookieStore.get("csrf-token")?.value;
+
       const bot = await req.json();
-      const { recaptchaToken, bot_view, command, price } = bot;
+      const { recaptchaToken, csrf_token: csrfTokenFromBody, bot_view, command, price } = bot;
+
+      if (!csrfTokenFromCookie || !csrfTokenFromBody || csrfTokenFromCookie !== csrfTokenFromBody) {
+        return NextResponse.json({ message: "Invalid CSRF token" }, { status: 403 });
+      }
+
       const {
         name: nameBot,
         description: descriptionBot,
@@ -69,11 +83,18 @@ export async function POST(req: NextRequest) {
         throw new Error("Email invalide.");
       }
 
+      // Sanitize user inputs
+      const sanitizedNameBot = purify.sanitize(nameBot);
+      const sanitizedDescriptionBot = purify.sanitize(descriptionBot);
+      const sanitizedCommentBot = purify.sanitize(commentBot);
+      const sanitizedDiscord = purify.sanitize(discord);
+      const sanitizedMail = purify.sanitize(mail);
+
       // Formater les commandes
       const formattedCommands = command
         .map(
           (cmd: { name: string; description: string }, index: number) =>
-            `<li>${index + 1}. ${cmd.name} : ${cmd.description}</li>`
+            `<li>${index + 1}. ${purify.sanitize(cmd.name)} : ${purify.sanitize(cmd.description)}</li>`
         )
         .join("");
 
@@ -97,7 +118,7 @@ export async function POST(req: NextRequest) {
           : [],
         html: `
                     <div>
-                      <h1>Nom du bot : ${nameBot}</h1>
+                      <h1>Nom du bot : ${sanitizedNameBot}</h1>
                       <h2>${
                         hostBot === "true"
                           ? "Le bot sera hébergé"
@@ -108,12 +129,12 @@ export async function POST(req: NextRequest) {
           hostBot === "true" ? `avec un hébergement à ${priceMounth}` : ""
         }</h3>
                     <p><strong>Commentaire supplémentaire :</strong> ${
-                      commentBot || "Aucun"
+                      sanitizedCommentBot || "Aucun"
                     }</p>
-                    <p><strong>Description du bot :</strong> ${descriptionBot}</p>
+                    <p><strong>Description du bot :</strong> ${sanitizedDescriptionBot}</p>
                     <p><strong>Commandes :</strong></p>
                     <ul>${formattedCommands}</ul>
-                    <p><strong>Commande passée par :</strong> ${discord} (${mail})</p>
+                    <p><strong>Commande passée par :</strong> ${sanitizedDiscord} (${sanitizedMail})</p>
                 `,
       };
 
@@ -124,7 +145,7 @@ export async function POST(req: NextRequest) {
         subject: "Confirmation de la commande",
         text: `
             Bonjour,
-            Votre demande concernant le bot "${nameBot}" a bien été enregistrée.
+            Votre demande concernant le bot "${sanitizedNameBot}" a bien été enregistrée.
             Nous reviendrons vers vous dans les plus brefs délais afin de discuter de la faisabilité de votre projet.
             Cordialement,
         `,

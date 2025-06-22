@@ -2,7 +2,7 @@ import React from "react";
 import style from "@/public/style/info_command.module.css";
 import { useTranslations } from "next-intl";
 import { Turnstile } from "@marsidev/react-turnstile";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 
 type Bot = {
@@ -30,6 +30,21 @@ const Info_command = ({
   const t = useTranslations("command_finish");
   const prefixe = "/";
   const [turnstileToken, setTurnstileToken] = useState("");
+  const [csrfToken, setCsrfToken] = useState("");
+
+  useEffect(() => {
+    const fetchCsrfToken = async () => {
+      try {
+        const response = await fetch("/api/csrf-token");
+        const { token } = await response.json();
+        setCsrfToken(token);
+      } catch (error) {
+        console.error("Failed to fetch CSRF token:", error);
+        toast.error("Failed to load security token. Please refresh the page.");
+      }
+    };
+    fetchCsrfToken();
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -63,7 +78,11 @@ const Info_command = ({
       const response = await fetch("/api/email", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...bot, recaptchaToken: turnstileToken }),
+        body: JSON.stringify({
+          ...bot,
+          recaptchaToken: turnstileToken,
+          csrf_token: csrfToken,
+        }),
       });
 
       toast.dismiss("submit");
@@ -172,6 +191,7 @@ const Info_command = ({
       </div>
 
       <form onSubmit={handleSubmit} className={style.form}>
+        <input type="hidden" name="csrf_token" value={csrfToken} />
         <div className={style.form_header}>
           <svg
             className={style.contact_icon}

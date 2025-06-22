@@ -2,6 +2,19 @@
 const withNextIntl = require("next-intl/plugin")("./i18n.ts");
 
 const nextConfig = {
+  async headers() {
+    return [
+      {
+        source: "/:path*",
+        headers: [
+          {
+            key: "X-Frame-Options",
+            value: "SAMEORIGIN",
+          },
+        ],
+      },
+    ];
+  },
   reactStrictMode: true,
   images: {
     unoptimized: true, // Désactive l'optimisation des images pour éviter les soucis de chargement

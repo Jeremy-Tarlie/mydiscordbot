@@ -9,8 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@edge-csrf/nextjs": "^2.5.2",
     "@marsidev/react-turnstile": "^1.1.0",
     "aos": "^2.3.4",
+    "dompurify": "^3.2.6",
+    "edge-csrf": "^1.0.11",
+    "jsdom": "^26.1.0",
     "next": "^15.3.1",
     "next-intl": "^3.26.0",
     "nodemailer": "^6.9.16",
@@ -21,6 +25,8 @@
     "react-turnstile": "^1.1.4"
   },
   "devDependencies": {
+    "@types/dompurify": "^3.0.5",
+    "@types/jsdom": "^21.1.7",
     "@types/node": "^20",
     "@types/nodemailer": "^6.4.17",
     "@types/react": "^18",

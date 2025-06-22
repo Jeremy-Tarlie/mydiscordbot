@@ -1,4 +1,5 @@
 "use client";
+import { useState, useEffect } from "react";
 import style from "@/public/style/form_step_1.module.css";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
@@ -25,6 +26,21 @@ const Form_step_1 = ({
   const router = useRouter();
   const params = useParams();
   const locale = params.locale as string;
+  const [csrfToken, setCsrfToken] = useState("");
+
+  useEffect(() => {
+    const fetchCsrfToken = async () => {
+      try {
+        const response = await fetch("/api/csrf-token");
+        const { token } = await response.json();
+        setCsrfToken(token);
+      } catch (error) {
+        console.error("Failed to fetch CSRF token:", error);
+        toast.error("Failed to load security token. Please refresh the page.");
+      }
+    };
+    fetchCsrfToken();
+  }, []);
 
   const handleChange = (
     e: React.ChangeEvent<
@@ -66,7 +82,7 @@ const Form_step_1 = ({
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(bot),
+        body: JSON.stringify({ ...bot, csrf_token: csrfToken }),
       });
 
       if (response.ok) {
@@ -90,6 +106,7 @@ const Form_step_1 = ({
       action="" // Ce champ devrait être vide ou non défini
       method="post" // Optionnel, car `fetch`
     >
+      <input type="hidden" name="csrf_token" value={csrfToken} />
       <div className={style.form_group}>
         <label>
           <span>{t("title_bot")}</span>
