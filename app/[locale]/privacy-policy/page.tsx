@@ -13,10 +13,9 @@ export default function MentionLegalPage() {
             <strong>{t("editor.nameOrPseudonymTitle")}</strong>{" "}
             {t("editor.nameOrPseudonym")}
           </li>
-          {/* <li><strong>Adresse :</strong> [Ton adresse physique ou mention "Adresse sur demande"]</li> */}
           <li>
             <strong>{t("editor.emailTitle")}</strong>{" "}
-            <a href="mailto:contact@tarlie.fr">{t("editor.email")}</a>
+            <a href="mailto:command@mydiscordbot.com">{t("editor.email")}</a>
           </li>
           <li>
             <strong>{t("editor.contactDiscordTitle")}</strong>{" "}
@@ -26,7 +25,7 @@ export default function MentionLegalPage() {
             <strong>{t("editor.statusTitle")}</strong>{" "}
             {t("editor.status")}
           </li>
-          {/* <li><strong>SIRET :</strong> [Si applicable]</li> */}
+          <li><strong>SIRET :</strong> 944 788 330 00016</li>
         </ul>
       </section>
 
@@ -110,7 +109,7 @@ export default function MentionLegalPage() {
         </ul>
         <p>
           {t("privacyPolicy.contact.title")}{" "}
-          <a href="mailto:discord@tarlie.fr">
+          <a href="mailto:command@mydiscordbot.com">
             {t("privacyPolicy.contact.email")}
           </a>{" "}
           {t("privacyPolicy.contact.or")} {t("privacyPolicy.contact.discord")}

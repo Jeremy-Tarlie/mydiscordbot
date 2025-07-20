@@ -6,6 +6,7 @@ import { useMessages } from "next-intl";
 import "./global.css";
 import Header from "@/components/navigation/Header";
 import Footer from "@/components/navigation/Footer";
+import CookieConsent from "@/components/CookieConsent";
 import { Metadata } from "next";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -208,6 +209,7 @@ export default function RootLayout({ children }: LayoutProps) {
             <Header locale={locale || "fr"} />
             {children}
             <Footer />
+            <CookieConsent />
           </div>
         </body>
       </NextIntlClientProvider>

@@ -4,7 +4,7 @@
     "nameOrPseudonymTitle": "Pseudonyme : ",
     "nameOrPseudonym": "khraii",
     "emailTitle": "Email : ",
-    "email": "contact@tarlie.fr",
+    "email": "command@mydiscordbot.com",
     "contactDiscordTitle": "Discord : ",
     "contactDiscord": "khraii",
     "statusTitle": "Statut : ",
@@ -89,7 +89,7 @@
     },
     "contact": {
       "title": "Pour exercer vos droits, contactez-nous à :",
-      "email": " discord@tarlie.fr",
+      "email": " command@mydiscordbot.com",
       "or" : " ou via Discord : ",
       "discord": "khraii."
     }

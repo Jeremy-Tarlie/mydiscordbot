@@ -25,6 +25,9 @@ const Footer = () => {
             <Link href={`/${locale}/privacy-policy`}>
               {t("terms")}
             </Link>
+            <Link href={`/${locale}/cookie-policy`}>
+              {t("cookies")}
+            </Link>
             <Link href={`/${locale}/privacy-policy`}>
               {t("contact")}
             </Link>
