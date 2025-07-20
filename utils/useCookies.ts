@@ -18,7 +18,11 @@ export const useCookies = () => {
 
   const updateConsent = (newConsent: CookieConsent) => {
     setConsent(newConsent);
-    localStorage.setItem("cookieConsent", newConsent);
+    if (newConsent) {
+      localStorage.setItem("cookieConsent", newConsent);
+    } else {
+      localStorage.removeItem("cookieConsent");
+    }
     
     // Gérer les cookies selon le consentement
     handleCookieConsent(newConsent);

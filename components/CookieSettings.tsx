@@ -60,7 +60,7 @@ const CookieSettings = () => {
             <div className={styles.cookieType}>
               <div className={styles.cookieInfo}>
                 <h4>Cookies de performance</h4>
-                <p>Pour analyser l'utilisation du site et améliorer nos services</p>
+                <p>Pour analyser l&apos;utilisation du site et améliorer nos services</p>
               </div>
               <div className={styles.toggle}>
                 <input 

@@ -1,4 +1,3 @@
-import { useTranslations } from "next-intl";
 import { Metadata } from "next";
 import styles from "@/public/style/cookiePolicy.module.css";
 import CookieSettings from "@/components/CookieSettings";
