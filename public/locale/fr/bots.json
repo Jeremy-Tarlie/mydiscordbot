@@ -8,6 +8,8 @@
     "call_to_action_button": "Créer mon bot Discord",
     "card_link": "Voir le bot",
     "loading_spinner": "Chargement des bots...",
-    "error_message": "Impossible de charger les informations du bot Discord. Veuillez réessayer plus tard."
-  }
+    "error_message": "Impossible de charger les informations du bot Discord. Veuillez réessayer plus tard.",
+    "error_title": "Erreur de chargement",
+    "error_retry": "Réessayer"
+}
   

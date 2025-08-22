@@ -1,7 +1,7 @@
 "use client";
-import React from "react";
+import React, { useMemo, useCallback } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Card } from "@/components/Bots/Cards";
+import Card from "@/components/Bots/Cards";
 import style from "@/public/style/botList.module.css";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
@@ -24,7 +24,7 @@ interface BotListProps {
   };
 }
 
-const BotList = ({ data }: BotListProps) => {
+const BotList = React.memo(({ data }: BotListProps) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const params = useParams();
@@ -32,24 +32,125 @@ const BotList = ({ data }: BotListProps) => {
 
   const t = useTranslations("bots");
 
-  // Pagination handlers
-  const goToPage = (pageNumber: number) => {
+  // Mémoisation des fonctions de pagination pour éviter les re-renders
+  const goToPage = useCallback((pageNumber: number) => {
     const params = new URLSearchParams(searchParams.toString());
     params.set("page", pageNumber.toString());
     router.push(`?${params.toString()}`);
-  };
+  }, [searchParams, router]);
 
-  const goToPreviousPage = () => {
+  const goToPreviousPage = useCallback(() => {
     if (data.currentPage > 1) {
       goToPage(data.currentPage - 1);
     }
-  };
+  }, [data.currentPage, goToPage]);
 
-  const goToNextPage = () => {
+  const goToNextPage = useCallback(() => {
     if (data.currentPage < data.totalPages) {
       goToPage(data.currentPage + 1);
     }
-  };
+  }, [data.currentPage, data.totalPages, goToPage]);
+
+  // Mémoisation des éléments de pagination
+  const paginationElements = useMemo(() => {
+    const elements = [];
+
+    // Show first page
+    if (data.currentPage > 2) {
+      elements.push(
+        <button
+          key="first"
+          onClick={() => goToPage(1)}
+          className={style.pagination_number}
+        >
+          1
+        </button>
+      );
+    }
+
+    // Show ellipsis if needed
+    if (data.currentPage > 3) {
+      elements.push(
+        <span key="ellipsis1" className={style.pagination_ellipsis}>
+          ...
+        </span>
+      );
+    }
+
+    // Show previous page if not first
+    if (data.currentPage > 1) {
+      elements.push(
+        <button
+          key="prev"
+          onClick={() => goToPage(data.currentPage - 1)}
+          className={style.pagination_number}
+        >
+          {data.currentPage - 1}
+        </button>
+      );
+    }
+
+    // Current page
+    elements.push(
+      <button
+        key="current"
+        className={`${style.pagination_number} ${style.pagination_active}`}
+      >
+        {data.currentPage}
+      </button>
+    );
+
+    // Show next page if not last
+    if (data.currentPage < data.totalPages) {
+      elements.push(
+        <button
+          key="next"
+          onClick={() => goToPage(data.currentPage + 1)}
+          className={style.pagination_number}
+        >
+          {data.currentPage + 1}
+        </button>
+      );
+    }
+
+    // Show ellipsis if needed
+    if (data.currentPage < data.totalPages - 2) {
+      elements.push(
+        <span key="ellipsis2" className={style.pagination_ellipsis}>
+          ...
+        </span>
+      );
+    }
+
+    // Show last page
+    if (data.currentPage < data.totalPages - 1) {
+      elements.push(
+        <button
+          key="last"
+          onClick={() => goToPage(data.totalPages)}
+          className={style.pagination_number}
+        >
+          {data.totalPages}
+        </button>
+      );
+    }
+
+    return elements;
+  }, [data.currentPage, data.totalPages, goToPage]);
+
+  // Mémoisation des bots pour éviter les re-renders inutiles
+  const botCards = useMemo(() => {
+    console.log(data);
+    return data.bots.map((bot) => (
+      <Card
+        key={bot.id}
+        id={bot.id}
+        title={bot.name}
+        description={bot.description}
+        image={bot.image}
+      />
+    ));
+  }, [data.bots]);
 
   return (
     <div className={style.main_content}>
@@ -67,90 +168,29 @@ const BotList = ({ data }: BotListProps) => {
       <section>
         <h2 className={style.section_title}>Bots en vedette</h2>
         <div className={style.bots_grid}>
-          {data.bots.map((bot) => (
-            <Card
-              key={bot.id}
-              id={bot.id}
-              title={bot.name}
-              description={bot.description}
-              image={bot.image}
-            />
-          ))}
+          {botCards}
         </div>
 
-        {/* Pagination */}
+        {/* Pagination optimisée */}
         <div className={style.pagination}>
           <button
             onClick={goToPreviousPage}
             disabled={data.currentPage === 1}
             className={style.pagination_button}
+            aria-label={t("pagination_button_previous")}
           >
             &laquo; {t("pagination_button_previous")}
           </button>
 
           <div className={style.pagination_numbers}>
-            {/* Show first page */}
-            {data.currentPage > 2 && (
-              <button
-                onClick={() => goToPage(1)}
-                className={style.pagination_number}
-              >
-                1
-              </button>
-            )}
-
-            {/* Show ellipsis if needed */}
-            {data.currentPage > 3 && (
-              <span className={style.pagination_ellipsis}>...</span>
-            )}
-
-            {/* Show previous page if not first */}
-            {data.currentPage > 1 && (
-              <button
-                onClick={() => goToPage(data.currentPage - 1)}
-                className={style.pagination_number}
-              >
-                {data.currentPage - 1}
-              </button>
-            )}
-
-            {/* Current page */}
-            <button
-              className={`${style.pagination_number} ${style.pagination_active}`}
-            >
-              {data.currentPage}
-            </button>
-
-            {/* Show next page if not last */}
-            {data.currentPage < data.totalPages && (
-              <button
-                onClick={() => goToPage(data.currentPage + 1)}
-                className={style.pagination_number}
-              >
-                {data.currentPage + 1}
-              </button>
-            )}
-
-            {/* Show ellipsis if needed */}
-            {data.currentPage < data.totalPages - 2 && (
-              <span className={style.pagination_ellipsis}>...</span>
-            )}
-
-            {/* Show last page */}
-            {data.currentPage < data.totalPages - 1 && (
-              <button
-                onClick={() => goToPage(data.totalPages)}
-                className={style.pagination_number}
-              >
-                {data.totalPages}
-              </button>
-            )}
+            {paginationElements}
           </div>
 
           <button
             onClick={goToNextPage}
             disabled={data.currentPage === data.totalPages}
             className={style.pagination_button}
+            aria-label={t("pagination_button_next")}
           >
             {t("pagination_button_next")} &raquo;
           </button>
@@ -168,12 +208,15 @@ const BotList = ({ data }: BotListProps) => {
         <Link
           href={`/${locale}/command`}
           className={style.call_to_action_button}
+          prefetch={false} // Désactiver le prefetch pour améliorer les performances
         >
           {t("call_to_action_button")}
         </Link>
       </section>
     </div>
   );
-};
+});
+
+BotList.displayName = 'BotList';
 
 export default BotList;

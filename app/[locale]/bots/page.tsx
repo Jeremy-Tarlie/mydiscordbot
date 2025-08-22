@@ -1,94 +1,110 @@
 "use client"
-import React, { Suspense, useEffect, useState, useTransition, cache } from 'react'
-import BotList from '@/components/Bots/BotList'
+import React, { Suspense } from 'react'
 import { useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
+import dynamic from 'next/dynamic';
+import { useBotsData, usePreloadNextPage } from '@/utils/useBotsData';
 
-interface BotData {
-  bots: Array<{
-    id: string;
-    name: string;
-    description: string;
-    image: string;
-    commands: Array<{
-      name: string;
-      description: string;
-    }>;
-  }>;
-  currentPage: number;
-  totalPages: number;
-  total: number;
-  botsPerPage: number;
-}
-
-// Cache de la fonction de fetch
-const fetchBotsData = cache(async (page: number, limit: number) => {
-  const res = await fetch(`/api/bots?page=${page}&limit=${limit}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    }
-  });
-
-  if (!res.ok) {
-    throw new Error("Failed to fetch data");
-  }
-
-  return res.json();
+// Lazy loading du composant BotList
+const BotListLazy = dynamic(() => import('@/components/Bots/BotList'), {
+  loading: () => <BotListSkeleton />,
+  ssr: false
 });
 
-// Composant de chargement
-function LoadingSpinner() {
-  const t = useTranslations("bots");
-  return <div className="loading-spinner">{t("loading_spinner")}</div>;
-}
-
-// Composant d'erreur
-function ErrorMessage({ message }: { message: string | null }) {
-  const t = useTranslations("bots");
-  return <div className="error-message">{t("error_message")}</div>;
-}
-
-// Composant principal des bots
-function BotListWrapper({ page, limit }: { page: number, limit: number }) {
-  const [data, setData] = useState<BotData | null>(null);
-  const [error, setError] = useState<string | null>(null);
-  const [isPending, startTransition] = useTransition();
-
-  useEffect(() => {
-    startTransition(async () => {
-      try {
-        const botData = await fetchBotsData(page, limit);
-        setData(botData);
-      } catch (err) {
-        console.error("Error fetching bots:", err);
-        setError("Une erreur est survenue");
-      }
-    });
-  }, [page, limit]);
-
-  if (error) {
-    return <ErrorMessage message={error} />;
-  }
-
-  if (!data) {
-    return null;
-  }
-
+// Composant skeleton amélioré
+function BotListSkeleton() {
   return (
-    <BotList 
-      data={{
-        bots: data.bots,
-        currentPage: page,
-        totalPages: data.totalPages,
-        total: data.total,
-        botsPerPage: limit
-      }} 
-    />
+    <div className="bots-skeleton">
+      <div className="skeleton-intro">
+        <div className="skeleton-title"></div>
+        <div className="skeleton-description"></div>
+      </div>
+      
+      <div className="skeleton-grid">
+        {Array.from({ length: 6 }).map((_, index) => (
+          <div key={index} className="skeleton-card">
+            <div className="skeleton-image"></div>
+            <div className="skeleton-content">
+              <div className="skeleton-card-title"></div>
+              <div className="skeleton-card-description"></div>
+              <div className="skeleton-button"></div>
+            </div>
+          </div>
+        ))}
+      </div>
+      
+      <div className="skeleton-pagination">
+        <div className="skeleton-pagination-button"></div>
+        <div className="skeleton-pagination-numbers">
+          {Array.from({ length: 5 }).map((_, index) => (
+            <div key={index} className="skeleton-pagination-number"></div>
+          ))}
+        </div>
+        <div className="skeleton-pagination-button"></div>
+      </div>
+    </div>
   );
 }
 
-// Page principale
+// Composant d'erreur amélioré
+function ErrorMessage({ message, onRetry }: { message: string | null; onRetry?: () => void }) {
+  const t = useTranslations("bots");
+  return (
+    <div className="error-container">
+      <div className="error-message">
+        <h3>{t("error_title")}</h3>
+        <p>{message || t("error_message")}</p>
+        {onRetry && (
+          <button onClick={onRetry} className="error-retry-button">
+            {t("error_retry")}
+          </button>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// Composant principal des bots optimisé
+function BotListWrapper({ page, limit }: { page: number, limit: number }) {
+  const { data, loading, error, refetch, isStale } = useBotsData({
+    page,
+    limit,
+    autoRefresh: false,
+    refreshInterval: 30000
+  });
+
+  // Précharger la page suivante
+  usePreloadNextPage(page, limit);
+
+  if (error) {
+    return <ErrorMessage message={error} onRetry={refetch} />;
+  }
+
+  if (loading || !data) {
+    return <BotListSkeleton />;
+  }
+
+  return (
+    <>
+      {isStale && (
+        <div className="stale-data-notice">
+          <p>Données en cache - actualisation en cours...</p>
+        </div>
+      )}
+      <BotListLazy 
+        data={{
+          bots: data.bots,
+          currentPage: page,
+          totalPages: data.totalPages,
+          total: data.total,
+          botsPerPage: limit
+        }} 
+      />
+    </>
+  );
+}
+
+// Page principale optimisée
 export default function Page() {
   const searchParams = useSearchParams();
   const page = parseInt(searchParams.get("page") || "1");
@@ -96,7 +112,7 @@ export default function Page() {
 
   return (
     <div className="bots-container">
-      <Suspense fallback={<LoadingSpinner />}>
+      <Suspense fallback={<BotListSkeleton />}>
         <BotListWrapper page={page} limit={limit} />
       </Suspense>
     </div>
