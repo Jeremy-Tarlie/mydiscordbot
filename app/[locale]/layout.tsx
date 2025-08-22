@@ -65,7 +65,14 @@ export const metadata: Metadata = {
       "MyDiscordBot - Le Créateur de Bots Discord Personnalisés | Service Officiel",
     description:
       "MyDiscordBot est le service officiel de création de bots Discord personnalisés. Créez votre bot sur mesure pour la modération, les mini-jeux et la gestion de communauté.",
-    images: ["/img/bot.webp"],
+      images: [
+        {
+          url: "/img/bot.webp",
+          width: 600,
+          height: 600,
+          alt: "MyDiscordBot - Logo Officiel",
+        },
+      ],
     creator: "@khraii",
     site: "@MyDiscordBot",
   },
