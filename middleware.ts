@@ -1,6 +1,5 @@
 import createMiddleware from 'next-intl/middleware';
-import { locales } from './i18n';
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest } from 'next/server';
 
 // Définir le type LocalePrefix explicitement
 type LocalePrefix = 'as-needed' | 'always' | 'never';
@@ -19,14 +18,16 @@ export default function middleware(req: NextRequest) {
   
   const cspHeader = `
     default-src 'self';
-    script-src 'self' 'nonce-${nonce}' 'strict-dynamic' https: http: 'unsafe-inline' ${process.env.NODE_ENV === 'development' ? "'unsafe-eval'" : ""};
+    script-src 'self' 'nonce-${nonce}' 'strict-dynamic' https://www.googletagmanager.com https://www.google-analytics.com https://www.gstatic.com https: http: 'unsafe-inline' ${process.env.NODE_ENV === 'development' ? "'unsafe-eval'" : ""};
     style-src 'self' 'unsafe-inline';
-    img-src 'self' blob: data: https://cdn.discordapp.com;
+    img-src 'self' blob: data: https://cdn.discordapp.com https://www.google-analytics.com https://www.googletagmanager.com;
     font-src 'self';
     object-src 'none';
     base-uri 'self';
     form-action 'self';
     frame-ancestors 'none';
+    frame-src 'self' https://challenges.cloudflare.com https://www.google.com;
+    connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://www.googletagmanager.com;
   `.replace(/\s{2,}/g, ' ').trim();
 
   const response = intlMiddleware(req);
