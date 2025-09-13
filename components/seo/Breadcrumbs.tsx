@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { BreadcrumbStructuredData } from './StructuredData';
+import styles from '@/public/style/breadcrumbs.module.css';
 
 interface BreadcrumbItem {
   name: string;
@@ -18,21 +19,21 @@ export function Breadcrumbs({ items, className = '' }: BreadcrumbsProps) {
       <BreadcrumbStructuredData items={items} />
       <nav 
         aria-label="Fil d'Ariane" 
-        className={`breadcrumbs ${className}`}
+        className={`${styles.breadcrumbs} ${className}`}
         role="navigation"
       >
-        <ol className="breadcrumb-list" itemScope itemType="https://schema.org/BreadcrumbList">
+        <ol className={styles.breadcrumbList} itemScope itemType="https://schema.org/BreadcrumbList">
           {items.map((item, index) => (
             <li 
               key={index}
-              className={`breadcrumb-item ${item.current ? 'current' : ''}`}
+              className={`${styles.breadcrumbItem} ${item.current ? 'current' : ''}`}
               itemProp="itemListElement"
               itemScope
               itemType="https://schema.org/ListItem"
             >
               {item.current ? (
                 <span 
-                  className="breadcrumb-link current"
+                  className={`${styles.breadcrumbLink} ${styles.current}`}
                   aria-current="page"
                   itemProp="name"
                 >
@@ -41,7 +42,7 @@ export function Breadcrumbs({ items, className = '' }: BreadcrumbsProps) {
               ) : (
                 <Link 
                   href={item.url}
-                  className="breadcrumb-link"
+                  className={styles.breadcrumbLink}
                   itemProp="item"
                 >
                   <span itemProp="name">{item.name}</span>
@@ -49,7 +50,7 @@ export function Breadcrumbs({ items, className = '' }: BreadcrumbsProps) {
               )}
               <meta itemProp="position" content={String(index + 1)} />
               {index < items.length - 1 && (
-                <span className="breadcrumb-separator" aria-hidden="true">
+                <span className={styles.breadcrumbSeparator} aria-hidden="true">
                   ›
                 </span>
               )}
@@ -57,64 +58,6 @@ export function Breadcrumbs({ items, className = '' }: BreadcrumbsProps) {
           ))}
         </ol>
       </nav>
-      
-      <style jsx>{`
-        .breadcrumbs {
-          margin: 1rem 0;
-          font-size: 0.875rem;
-        }
-        
-        .breadcrumb-list {
-          display: flex;
-          flex-wrap: wrap;
-          align-items: center;
-          list-style: none;
-          margin: 0;
-          padding: 0;
-          gap: 0.5rem;
-        }
-        
-        .breadcrumb-item {
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-        }
-        
-        .breadcrumb-link {
-          color: #5865F2;
-          text-decoration: none;
-          transition: color 0.2s ease;
-        }
-        
-        .breadcrumb-link:hover {
-          color: #4752C4;
-          text-decoration: underline;
-        }
-        
-        .breadcrumb-link.current {
-          color: #2F3136;
-          font-weight: 500;
-        }
-        
-        .breadcrumb-separator {
-          color: #72767D;
-          font-weight: bold;
-        }
-        
-        @media (max-width: 768px) {
-          .breadcrumbs {
-            font-size: 0.75rem;
-          }
-          
-          .breadcrumb-list {
-            gap: 0.25rem;
-          }
-          
-          .breadcrumb-item {
-            gap: 0.25rem;
-          }
-        }
-      `}</style>
     </>
   );
 }
@@ -169,3 +112,4 @@ export function useBreadcrumbs(pathname: string, locale: string = 'fr') {
 
   return breadcrumbs;
 }
+

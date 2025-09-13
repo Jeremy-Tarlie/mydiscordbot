@@ -193,3 +193,5 @@ Pour toute question sur les optimisations SEO :
 ---
 
 **Note**: Ces optimisations SEO sont conçues pour améliorer progressivement le référencement de MyDiscordBot. Les résultats peuvent prendre plusieurs semaines à apparaître dans les moteurs de recherche.
+
+

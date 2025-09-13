@@ -65,16 +65,12 @@ const nextConfig = {
   
   // Optimisations pour le SEO et les performances
   experimental: {
-    optimizeCss: true,
     optimizePackageImports: ['@next/font', 'next-intl'],
   },
 
   // Compression et optimisations
   compress: true,
   poweredByHeader: false,
-  
-  // Optimisations de build
-  swcMinify: true,
   
   // Désactiver ESLint temporairement pour le build
   eslint: {

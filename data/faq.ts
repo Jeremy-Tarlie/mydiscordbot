@@ -79,3 +79,5 @@ export const hostingFAQ: FAQItem[] = [
     answer: "Bien sûr ! Vous pouvez télécharger le code de votre bot et l'héberger où vous le souhaitez. Nous fournissons la documentation complète et le support technique pour vous aider dans la configuration."
   }
 ];
+
+

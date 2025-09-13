@@ -17,9 +17,7 @@ export default getRequestConfig(async ({ locale }) => {
 
   return {
     messages,
-    timeZone: 'Europe/Paris',
-    defaultLocale: 'fr',
-    locales: ['fr', 'en']
+    timeZone: 'Europe/Paris'
   };
 });
 
